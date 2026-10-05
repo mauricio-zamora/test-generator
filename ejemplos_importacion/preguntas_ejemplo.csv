@@ -1,0 +1,215 @@
+﻿Tipo,Categoria,Subcategoria,Titulo,Puntos,Alto_px,Enunciado,Detalles_JSON
+single_choice,Selección Única y Múltiple,Cadenas (str),Método .lower() en cadenas,5.0,75,"¿Cuál es el resultado de ejecutar <code>""Hola Mundo"".lower()</code> en Python?","{""options"": [""a) \""HOLA MUNDO\"""", ""b) \""hola mundo\"""", ""c) \""Hola Mundo\"""", ""d) Genera un error""], ""correct_option"": 1}"
+single_choice,Selección Única y Múltiple,Cadenas (str),Eliminar espacios con .strip(),5.0,75,"Dada la variable <code>texto: str = ""  python  ""</code>, ¿qué método elimina los espacios en blanco al inicio y al final de la cadena?","{""options"": [""a) texto.trim()"", ""b) texto.clean()"", ""c) texto.strip()"", ""d) texto.cut()""], ""correct_option"": 2}"
+single_choice,Selección Única y Múltiple,"Estructuras de Datos (list, dict, set)",Diferencia entre list y set,5.0,85,¿Cuál es la principal diferencia entre una <code>list</code> y un <code>set</code> en Python?,"{""options"": [""a) El set permite duplicados y la lista no."", ""b) El set no mantiene orden ni permite duplicados."", ""c) La lista no permite acceder por \u00edndice."", ""d) No existen diferencias entre ambos.""], ""correct_option"": 1}"
+single_choice,Selección Única y Múltiple,"Estructuras de Datos (list, dict, set)",Indexación negativa en listas,5.0,75,"Si <code>numeros: list[int] = [4, 8, 15, 16]</code>, ¿qué expresión obtiene correctamente el último elemento de la lista?","{""options"": [""a) numeros[-1]"", ""b) numeros[last]"", ""c) numeros[len(numeros)]"", ""d) numeros.end()""], ""correct_option"": 0}"
+single_choice,Selección Única y Múltiple,"Estructuras de Datos (list, dict, set)",Llaves de diccionario con .keys(),5.0,75,"Dado <code>datos: dict[str, int] = {""a"": 1, ""b"": 2}</code>, ¿qué método devuelve únicamente las llaves del diccionario?","{""options"": [""a) datos.values()"", ""b) datos.items()"", ""c) datos.keys()"", ""d) datos.get()""], ""correct_option"": 2}"
+multiple_choice,Selección Única y Múltiple,Cadenas (str),Verificación de cadenas sin modificarlas,5.0,80,"De los siguientes métodos de cadenas (<code>str</code>), seleccione los <u>dos</u> que sirven para verificar el contenido de una cadena sin modificarla:","{""options"": [""a) startswith()"", ""b) replace()"", ""c) isdigit()"", ""d) split()""], ""correct_options"": [0, 2]}"
+multiple_choice,Selección Única y Múltiple,"Estructuras de Datos (list, dict, set)",Métodos de modificación in-place en listas,5.0,80,"De los siguientes métodos aplicables a una lista (<code>list</code>), seleccione los <u>dos</u> que modifican la lista original en el mismo lugar (in-place):","{""options"": [""a) append()"", ""b) sort()"", ""c) copy()"", ""d) count()""], ""correct_options"": [0, 1]}"
+multiple_choice,Selección Única y Múltiple,"Estructuras de Datos (list, dict, set)",Afirmaciones sobre sets y diccionarios,5.0,80,"Sobre los conjuntos (<code>set</code>) y diccionarios (<code>dict</code>) en Python, seleccione las <u>dos</u> afirmaciones correctas:","{""options"": [""a) Un set puede contener elementos duplicados."", ""b) Las llaves de un dict deben ser \u00fanicas."", ""c) El m\u00e9todo union() combina dos sets sin duplicar elementos."", ""d) Un dict se accede \u00fanicamente por \u00edndice num\u00e9rico.""], ""correct_options"": [1, 2]}"
+multiple_choice,Selección Única y Múltiple,Cadenas (str),Slicing y split en cadenas,5.0,80,"Si <code>frase: str = ""Curso de Python""</code>, seleccione las <u>dos</u> expresiones que devuelven correctamente la palabra <code>""Python""</code>:","{""options"": [""a) frase.split()[-1]"", ""b) frase[9:]"", ""c) frase[0:6]"", ""d) frase.upper()[9:]""], ""correct_options"": [0, 1]}"
+multiple_choice,Selección Única y Múltiple,Tipado (typing),Anotaciones de tipo (typing),5.0,85,"Sobre la anotación de tipos (<code>typing</code>) en Python, seleccione las <u>dos</u> afirmaciones correctas:","{""options"": [""a) <code>nombre: str = \""Ana\""</code> es una anotaci\u00f3n de tipo v\u00e1lida."", ""b) <code>edades: list[int]</code> indica una lista de enteros."", ""c) Las anotaciones de tipo son obligatorias para ejecutar el c\u00f3digo."", ""d) Python lanza un error si el valor no coincide con el tipo anotado.""], ""correct_options"": [0, 1]}"
+true_false,Selección Única y Múltiple,,Conceptos Básicos Python,6.0,110,Indique si las siguientes afirmaciones son Verdaderas (V) o Falsas (F):,"{""statements"": [""Las tuplas en Python son mutables."", ""Un diccionario admite llaves duplicadas."", ""Python es un lenguaje interpretado y tipado din\u00e1mico.""]}"
+single_choice,I Parcial 2026 - Selección,Expresiones Booleanas,Enfoque: Control de Calidad en Cervecería,2.0,149,"En una planta embotelladora, un lote de cerveza artesanal se aprueba para distribución (lote_aprobado = True) si el porcentaje de alcohol está entre 4.5% y 6.0% (ambos inclusive) Y la turbidez es menor a 15 NTU. Sin embargo, si el inspector activó la bandera de reprocesamiento (requiere_reproceso == True), el lote no se puede aprobar bajo ninguna circunstancia.
+
+¿Cuál expresión booleana representa correctamente esta regla de negocio?","{""options"": [""a) lote_aprobado = (4.5 <= alcohol <= 6.0 and turbidez < 15) or not requiere_reproceso"", ""b) lote_aprobado = (4.5 <= alcohol <= 6.0 and turbidez < 15) and not requiere_reproceso"", ""c) lote_aprobado = 4.5 <= alcohol <= 6.0 or turbidez < 15 and requiere_reproceso == False"", ""d) lote_aprobado = (alcohol >= 4.5 or alcohol <= 6.0) and (turbidez < 15 and requiere_reproceso)""]}"
+single_choice,I Parcial 2026 - Selección,Expresiones Booleanas,Enfoque: Seguridad en Caldera Industrial,2.0,132,"El sistema de prevención de una caldera activa la válvula de alivio (activar_valvula = True) si la presión supera los 120 PSI O la temperatura excede los 300 °C. No obstante, para evitar falsas alarmas, la válvula únicamente se activará si el sensor principal está en estado operativo (sensor_operativo == True).","{""options"": [""a) activar_valvula = presion > 120 or temperatura > 300 and sensor_operativo"", ""b) activar_valvula = (presion > 120 and temperatura > 300) and sensor_operativo"", ""c) activar_valvula = (presion > 120 or temperatura > 300) and sensor_operativo"", ""d) activar_valvula = (presion > 120 or temperatura > 300) or not sensor_operativo""]}"
+single_choice,I Parcial 2026 - Selección,Expresiones Booleanas,Enfoque: Autorización de Despacho Logístico,2.0,149,"Un centro de distribución autoriza el despacho inmediato de un pedido (despacho_autorizado = True) si el cliente tiene crédito aprobado (credito_aprobado == True) Y la cantidad solicitada no supera el stock en bodega (pedido <= stock_bodega). Como excepción, si el cliente es de categoría VIP (es_vip == True), la orden se autoriza independientemente de si supera el stock actual.","{""options"": [""a) despacho_autorizado = (credito_aprobado and pedido <= stock_bodega) and es_vip"", ""b) despacho_autorizado = (credito_aprobado and pedido <= stock_bodega) or es_vip"", ""c) despacho_autorizado = credito_aprobado or (pedido <= stock_bodega and es_vip)"", ""d) despacho_autorizado = (credito_aprobado or es_vip) and pedido > stock_bodega""]}"
+single_choice,I Parcial 2026 - Selección,Expresiones Booleanas,Enfoque: Control de Calidad en Inyección de Plástico,2.0,132,"Una pieza plástica se clasifica como apta (pieza_apta = True) si su peso se encuentra entre 150 y 180 gramos (inclusive) Y su longitud es exactamente de 25 cm. Sin embargo, la pieza es automáticamente rechazada si se detectan burbujas de aire (tiene_burbujas == True).","{""options"": [""a) pieza_apta = (peso >= 150 or peso <= 180) and longitud == 25 and not tiene_burbujas"", ""b) pieza_apta = (150 <= peso <= 180 and longitud == 25) and not tiene_burbujas"", ""c) pieza_apta = (150 <= peso <= 180) or (longitud == 25 and tiene_burbujas == False)"", ""d) pieza_apta = 150 <= peso <= 180 and longitud == 25 or tiene_burbujas""]}"
+single_choice,I Parcial 2026 - Selección,Expresiones Booleanas,Enfoque: Arranque de Vehículo Autónomo de Planta,2.0,166,"Un AGV (vehículo guiado autónomo) inicia su marcha (iniciar_marcha = True) si la batería supera el 20% Y la ruta no está obstruida (ruta_bloqueada == False). Adicionalmente, para que la marcha inicie, se requiere cumplir al menos una de las siguientes condiciones de mando: recibir una orden remota (orden_remota == True) O tener presionado el botón manual de inicio (boton_inicio == True).
+
+Seleccione la expresión en Python que modela esta condición:","{""options"": [""a) iniciar_marcha = (bateria > 20 and not ruta_bloqueada) and (orden_remota or boton_inicio)"", ""b) iniciar_marcha = bateria > 20 and not ruta_bloqueada and orden_remota or boton_inicio"", ""c) iniciar_marcha = (bateria > 20 or not ruta_bloqueada) and (orden_remota and boton_inicio)"", ""d) iniciar_marcha = (bateria > 20 and ruta_bloqueada) or (orden_remota or boton_inicio)""]}"
+single_choice,I Parcial 2026 - Selección,Expresiones Booleanas,Enfoque: Gestión de Tarifas de Almacenamiento,2.0,132,"Un servicio en la nube aplica tarifa reducida (tarifa_reducida = True) a las empresas que utilicen menos de 500 GB de almacenamiento O que mantengan menos de 5 servidores activos. Además, para aplicar a la tarifa, la empresa NO debe tener facturas pendientes de pago (facturas_pendientes == False).
+
+¿Cuál expresión booleana representa esta condición?","{""options"": [""a) tarifa_reducida = (almacenamiento < 500 and servidores < 5) and not facturas_pendientes"", ""b) tarifa_reducida = (almacenamiento < 500 or servidores < 5) and not facturas_pendientes"", ""c) tarifa_reducida = almacenamiento < 500 or (servidores < 5 and facturas_pendientes)"", ""d) tarifa_reducida = (almacenamiento < 500 or servidores < 5) or facturas_pendientes == False""]}"
+single_choice,I Parcial 2026 - Selección,Expresiones Booleanas,Enfoque: Control de Calidad de Mezclas de Cemento,2.0,149,"Un sistema de mezcla para concreto activa la alarma de rechazo (activar_alarma = True) si la humedad relativa supera el 85% O el tiempo de fraguado es menor a 45 minutos. Sin embargo, para evitar falsas alarmas durante el mantenimiento, la alarma solo se activará si el modo de prueba está desactivado (modo_prueba == False).
+
+¿Cuál expresión booleana en Python representa correctamente esta regla?","{""options"": [""a) activar_alarma = humedad > 85 or tiempo_fraguado < 45 and not modo_prueba"", ""b) activar_alarma = (humedad > 85 or tiempo_fraguado < 45) and not modo_prueba"", ""c) activar_alarma = (humedad > 85 and tiempo_fraguado < 45) or modo_prueba == False"", ""d) activar_alarma = (humedad > 85 or tiempo_fraguado < 45) or modo_prueba""]}"
+single_choice,I Parcial 2026 - Selección,Expresiones Booleanas,Enfoque: Gestión de Descuentos en Facturación,2.0,149,"Un sistema comercial aplica un descuento especial (aplicar_descuento = True) a una orden si el monto total es mayor o igual a $5,000 Y el cliente tiene más de 2 años de antigüedad. Como alternativa, si la orden proviene de un distribuidor mayorista (es_mayorista == True), el descuento se aplica automáticamente sin importar el monto ni la antigüedad.
+
+¿Cuál es la expresión booleana correcta en Python?","{""options"": [""a) aplicar_descuento = (monto >= 5000 or antigüedad > 2) and es_mayorista"", ""b) aplicar_descuento = (monto >= 5000 and antigüedad > 2) or es_mayorista"", ""c) aplicar_descuento = monto >= 5000 and (antigüedad > 2 or es_mayorista == False)"", ""d) aplicar_descuento = (monto >= 5000 and es_mayorista) or antigüedad > 2""]}"
+single_choice,I Parcial 2026 - Selección,Expresiones Booleanas,Enfoque: Monitoreo de Temperatura en Red de Frío,2.0,149,"Un contenedor refrigerado para medicamentos aprueba su rango térmico (rango_valido = True) si la temperatura está estrictamente entre 2 °C y 8 °C (sin incluir extremos) Y la puerta se encuentra cerrada (puerta_cerrada == True). No obstante, si el sensor reporta una falla de calibración (falla_sensor == True), el rango no se considera válido bajo ningún escenario.
+
+Seleccione la expresión booleana equivalente en Python:","{""options"": [""a) rango_valido = (2 <= temperatura <= 8 and puerta_cerrada) and falla_sensor"", ""b) rango_valido = (2 < temperatura < 8 or puerta_cerrada) and not falla_sensor"", ""c) rango_valido = (2 < temperatura < 8 and puerta_cerrada) and not falla_sensor"", ""d) rango_valido = 2 < temperatura < 8 and (puerta_cerrada or not falla_sensor)""]}"
+single_choice,I Parcial 2026 - Selección,Expresiones Booleanas,Enfoque: Aprobación Académica/Evaluación,2.0,132,"Un estudiante aprueba un curso de programación (curso_aprobado = True) si su promedio de evaluaciones está entre 70 y 85 (ambos inclusive) Y no reprobó ningún examen individual (lo cual equivale a que examen1 >= 70 and examen2 >= 70 and examen3 >= 70).
+
+¿Cuál expresión booleana implementa esta lógica correctamente?","{""options"": [""a) curso_aprobado = (70 <= promedio <= 85) or (examen1 >= 70 and examen2 >= 70 and examen3 >= 70)"", ""b) curso_aprobado = (70 <= promedio <= 85) and (examen1 >= 70 and examen2 >= 70 and examen3 >= 70)"", ""c) curso_aprobado = (promedio >= 70 or promedio <= 85) and (examen1 >= 70 or examen2 >= 70 or examen3 >= 70)"", ""d) curso_aprobado = 70 <= promedio <= 85 and examen1 >= 70 or examen2 >= 70""]}"
+single_choice,I Parcial 2026 - Selección,Teoría General y Conceptos Básicos,Enfoque: Programación vs. Codificación,2.0,98,"Según los fundamentos de la disciplina, ¿cuál es la diferencia conceptual precisa entre programar y codificar?","{""options"": [""a) Codificar es el proceso de diseñar la lógica del algoritmo en papel, mientras que programar es ejecutar el software en la computadora."", ""b) Programar es el ejercicio mental de analizar, desglosar y diseñar una solución lógica; codificar es traducir esa solución a la sintaxis de un lenguaje específico como Python."", ""c) Programar consiste en buscar errores sintácticos en el código y codificar es la automatización de procesos mediante inteligencia artificial."", ""d) Ambas palabras son sinónimos idénticos en ciencias de la computación y no existe distinción conceptual entre ellas.""]}"
+single_choice,I Parcial 2026 - Selección,Teoría General y Conceptos Básicos,Enfoque: Pensamiento Computacional - Abstracción,2.0,132,"Un ingeniero industrial analiza una línea de empaque para calcular la eficiencia de entrega. En su modelo decide incluir el peso del paquete y el tiempo de sellado, pero omite el color de la caja y la marca de la cinta adhesiva. ¿Qué pilar del pensamiento computacional está aplicando?","{""options"": [""a) Descomposición."", ""b) Reconocimiento de patrones."", ""c) Abstracción."", ""d) Diseño de Algoritmos.""]}"
+single_choice,I Parcial 2026 - Selección,Teoría General y Conceptos Básicos,Enfoque: Dato vs. Información,2.0,115,"En una planta de manufactura, un sensor emite en pantalla el valor aislado ""85"". Tras configurarse el sistema, la pantalla despliega ""La temperatura del horno A es 85 °C (Rango Normal)"". ¿Cómo se clasifican estos dos elementos respectivamente?","{""options"": [""a) \""85\"" es un dato y \""La temperatura del horno A es 85 °C...\"" es información."", ""b) Ambos elementos corresponden a datos puros sin procesar."", ""c) \""85\"" es información de control y el mensaje completo es un dato secundario."", ""d) \""85\"" es una variable cuantitativa e información equivale únicamente a valores de texto (str).""]}"
+single_choice,I Parcial 2026 - Selección,Teoría General y Conceptos Básicos,Enfoque: Características del Algoritmo,2.0,98,"Para que un algoritmo  sea considerado funcional y correcto, debe cumplir con tres propiedades fundamentales:","{""options"": [""a) Ser infinito, aleatorio y ejecutar código Python en paralelo."", ""b) Ser preciso, finito y definido (determinista)."", ""c) Ser abstracto, ejecutable por una IA y no requerir variables inicializadas."", ""d) Tener entradas binarias, ser indefinido y de ejecución no repetible.""]}"
+single_choice,I Parcial 2026 - Selección,Teoría General y Conceptos Básicos,Enfoque: Variables - La Regla de Oro de Inicialización,2.0,98,¿Por qué es obligatorio inicializar una variable antes de utilizarla dentro de un ciclo o estructura iterativa?,"{""options"": [""a) Porque si no se inicializa, Python la convierte automáticamente en una cadena de texto (str)."", ""b) Para evitar el uso de datos que puedan alterar o arruinar el cálculo."", ""c) Para garantizar que el ciclo se transforme de un while a un for de manera automática."", ""d) Porque de lo contrario el sistema operativo elimina la variable de la RAM al terminar la primera vuelta.""]}"
+single_choice,I Parcial 2026 - Selección,Teoría General y Conceptos Básicos,Enfoque: Contadores vs. Acumuladores,2.0,132,"Dentro de un ciclo que procesa los registros de producción de un turno, la instrucción piezas_rechazadas = piezas_rechazadas + 1 actúa como un [ X ], mientras que peso_total = peso_total + peso_caja actúa como un [ Y ].
+
+¿Qué términos completan correctamente la afirmación?","{""options"": [""a) [X] Acumulador multiplicatorio | [Y] Contador incremental."", ""b) [X] Contador | [Y] Acumulador de sumatoria."", ""c) [X] Variable global | [Y] Indicador booleano."", ""d) [X] Acumulador de sumatoria | [Y] Contador.""]}"
+single_choice,I Parcial 2026 - Selección,Teoría General y Conceptos Básicos,Enfoque: Inicialización del Acumulador Multiplicatorio,2.0,115,Se requiere calcular la tasa de supervivencia o factor acumulado de rendimiento de un proceso mediante multiplicaciones sucesivas en cada hora del turno. ¿En qué valor debe inicializarse la variable acumuladora multiplicatoria y por qué?,"{""options"": [""a) En 0, porque es el punto neutro de cualquier cálculo computacional."", ""b) En 1 (o 1.0), porque es el elemento neutro de la multiplicación y evitará que todo el resultado sea cero."", ""c) En -1, para indicar que no ha iniciado la primera iteración del ciclo."", ""d) No requiere inicializarse; Python le asigna el valor del primer factor automáticamente.""]}"
+single_choice,I Parcial 2026 - Selección,Teoría General y Conceptos Básicos,Enfoque: Indexación y Conteo - Visión Humana vs. Computadora,2.0,98,"Al recorrer una secuencia de NN elementos utilizando la función range(N) en Python, ¿cuál es el rango real de valores numéricos que genera el ciclo?","{""options"": [""a) Desde 11 hasta NN (inclusive)."", ""b) Desde 00 hasta N - 1N−1 de forma estricta."", ""c) Desde 11 hasta N + 1N+1."", ""d) Desde 00 hasta NN (incluyendo el valor NN).""]}"
+single_choice,I Parcial 2026 - Selección,Teoría General y Conceptos Básicos,Enfoque: Formato de Nombres de Variables - Python Standard,2.0,115,"Siguiendo las buenas prácticas y convenciones del lenguaje Python, ¿cuál de las siguientes opciones representa la forma estándar de nombrar una variable que almacena la cantidad de insumos en bodega?","{""options"": [""a) cantidadInsumosBodega (lowerCamelCase)."", ""b) CantidadInsumosBodega (UpperCamelCase)."", ""c) cantidad_insumos_bodega (snake_case)."", ""d) CANTIDAD-INSUMOS-BODEGA (kebab-case).""]}"
+single_choice,I Parcial 2026 - Selección,Teoría General y Conceptos Básicos,Enfoque: Estructura de Delimitación de Código en Python,2.0,115,"A diferencia de otros lenguajes de programación que utilizan llaves { } o palabras clave (begin / end), ¿qué mecanismo utiliza Python para determinar qué instrucciones pertenecen al bloque interno de un if, for o while?","{""options"": [""a) El uso obligatorio de paréntesis en cada línea de código."", ""b) La indentación (sangría o espacios en blanco al inicio de la línea)."", ""c) La colocación de un punto y coma ; al final de cada instrucción."", ""d) Declarar explícitamente la palabra reservada end al cerrar la estructura.""]}"
+single_choice,I Parcial 2026 - Selección,"Operadores, Jerarquía y Condicionales",Enfoque: Operadores Aritméticos Especiales - Residuo,2.0,81,¿Cuál es el resultado exacto de evaluar la expresión 17 % 5 en Python?,"{""options"": [""a) 3"", ""b) 2"", ""c) 3.4"", ""d) 0""]}"
+single_choice,I Parcial 2026 - Selección,"Operadores, Jerarquía y Condicionales",Enfoque: Jerarquía Completa de Operadores,2.0,115,"De acuerdo con las reglas formales de precedencia vistas en el curso (Paréntesis → Aritméticos → Relacionales → Lógicos NOT → AND → OR), ¿cuál es el valor resultante de la siguiente expresión?
+res = 10 + 2 * 3 > 15 and not 4 == 5","{""options"": [""a) True"", ""b) False"", ""c) 16"", ""d) Error de sintaxis por combinar números con operadores lógicos.""]}"
+single_choice,I Parcial 2026 - Selección,"Operadores, Jerarquía y Condicionales",Enfoque: Evaluación de Expresiones con Módulo y Jerarquía,2.0,98,"¿Cuál es el valor resultante de la variable x tras ejecutar la siguiente instrucción?
+x = 20 - 6 % 4 * 3","{""options"": [""a) 2"", ""b) 14"", ""c) 10"", ""d) 0""]}"
+development,Desarrollo,Colecciones,Comparativa list[int] vs set[int],8.0,260,"Explique con sus propias palabras la diferencia entre una <code>list[int]</code> y un <code>set[int]</code> en Python, mencionando al menos dos características distintivas de cada estructura.","{""lines_count"": 10, ""lines_class"": ""lines-10""}"
+development,Desarrollo,Colecciones,"Propósito y uso de dict[str, int]",8.0,260,"Describa el propósito de un <code>dict[str, int]</code> en Python y explique cómo se accede y se actualiza el valor asociado a una llave existente. Incluya un ejemplo breve.","{""lines_count"": 10, ""lines_class"": ""lines-10""}"
+development,Desarrollo,Inmutabilidad y Cadenas,Inmutabilidad de cadenas str,8.0,260,"Explique qué significa que las cadenas (<code>str</code>) en Python sean inmutables. ¿Qué sucede al ""modificar"" una cadena con un método como <code>.replace()</code>?","{""lines_count"": 10, ""lines_class"": ""lines-10""}"
+code_writing,Desarrollo,,Escritura de Función Python,10.0,240,Escriba una función recursiva que calcule el factorial de un número n.,"{""lines_count"": 12}"
+code_analysis,I Parcial 2026 - Rastreo de Código,General,Rango numérico y conteo de pares,5.0,843,"Analice el siguiente programa en Python y complete la tabla de seguimiento paso a paso:
+
+<table style=""width: 100%; table-layout: fixed; border: 1px solid black; border-collapse: collapse;"">
+  <thead>
+    <tr style=""background-color: #f2f2f2;"">
+      <th style=""width: 20%; border: 1px solid black; padding: 8px; text-align: center;"">Iteración</th>
+      <th style=""width: 20%; border: 1px solid black; padding: 8px; text-align: center;"">Valor de <code>i</code></th>
+      <th style=""width: 20%; border: 1px solid black; padding: 8px; text-align: center;"">¿<code>i % 2 == 0</code>? (Sí/No)</th>
+      <th style=""width: 20%; border: 1px solid black; padding: 8px; text-align: center;""><code>contador</code></th>
+      <th style=""width: 20%; border: 1px solid black; padding: 8px; text-align: center;""><code>suma</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">Inicio</td>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">—</td>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">—</td>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">0</td>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">0</td>
+    </tr>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">1</td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+    </tr>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">2</td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+    </tr>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">3</td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+    </tr>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">4</td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+    </tr>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">5</td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+    </tr>
+  </tbody>
+</table>","{""code"": ""contador = 0\nsuma = 0\n\nfor i in range(2, 7):\n    if i % 2 == 0:\n        contador = contador + 1\n        suma = suma + i\n\nprint(\""Contador:\"", contador)\nprint(\""Suma:\"", suma)"", ""sub_prompt"": ""Responda las siguientes preguntas:\nSalida esperada en pantalla (print), valor para contador y suma"", ""lines_count"": 2, ""lines_class"": """"}"
+code_analysis,I Parcial 2026 - Rastreo de Código,General,Recorrido de lista con acumulación de condición - For Each,5.0,886,"Examine el siguiente script que procesa lecturas de sensores de calidad en una línea de empaque:
+<table style=""width: 100%; table-layout: fixed; border: 1px solid black; border-collapse: collapse;"">
+  <thead>
+    <tr style=""background-color: #f2f2f2;"">
+      <th style=""width: 25%; border: 1px solid black; padding: 8px; text-align: center;"">Iteración</th>
+      <th style=""width: 25%; border: 1px solid black; padding: 8px; text-align: center;"">Elemento <code>valor</code></th>
+      <th style=""width: 25%; border: 1px solid black; padding: 8px; text-align: center;"">¿<code>valor &gt;= 10</code>? (Sí/No)</th>
+      <th style=""width: 25%; border: 1px solid black; padding: 8px; text-align: center;""><code>total_aprobados</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">Inicio</td>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">—</td>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">—</td>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">0</td>
+    </tr>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">1</td>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">12</td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+    </tr>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">2</td>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">5</td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+    </tr>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">3</td>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">18</td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+    </tr>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">4</td>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">9</td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+    </tr>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">5</td>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">15</td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+    </tr>
+  </tbody>
+</table>","{""code"": ""lecturas:list[int] = [12, 5, 18, 9, 15]\nlimite:int = 10\ntotal_aprobados:int = 0\nvalor:int = 0\n \nfor i in range(len(lecturas)):\n    valor = lecturas[i]\n    if valor >= limite:\n        total_aprobados = total_aprobados + valor\n    else:\n        total_aprobados = total_aprobados - 2\n \nprint(\""Resultado:\"", total_aprobados)"", ""sub_prompt"": ""Salida esperada en pantalla (print) y total_aprobados"", ""lines_count"": 2, ""lines_class"": """"}"
+code_analysis,I Parcial 2026 - Rastreo de Código,General,Acumulador multiplicatorio y filtro de índice con range,5.0,807,"Realice la prueba de escritorio para la siguiente rutina:
+<table style=""width: 100%; table-layout: fixed; border: 1px solid black; border-collapse: collapse;"">
+  <thead>
+    <tr style=""background-color: #f2f2f2;"">
+      <th style=""width: 25%; border: 1px solid black; padding: 8px; text-align: center;"">Iteración</th>
+      <th style=""width: 25%; border: 1px solid black; padding: 8px; text-align: center;"">Valor de <code>k</code></th>
+      <th style=""width: 25%; border: 1px solid black; padding: 8px; text-align: center;"">¿<code>k != 4</code>? (Sí/No)</th>
+      <th style=""width: 25%; border: 1px solid black; padding: 8px; text-align: center;""><code>factor</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">Inicio</td>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">—</td>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">—</td>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">1</td>
+    </tr>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">1</td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+    </tr>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">2</td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+    </tr>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">3</td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+    </tr>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">4</td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+    </tr>
+    <tr>
+      <td style=""border: 1px solid black; padding: 8px; text-align: center;"">5</td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+      <td style=""border: 1px solid black; padding: 8px;""></td>
+    </tr>
+  </tbody>
+</table>","{""code"": ""factor = 1\nlimite = 4\n \nfor k in range(1, 6):\n    if k != limite:\n        factor = factor * 2\n    else:\n        factor = factor + 3\n \nprint(\""Valor final factor:\"", factor)"", ""sub_prompt"": ""Salida esperada en pantalla (print) y factor"", ""lines_count"": 2, ""lines_class"": """"}"
+code_analysis,Identificación de Errores,Sintaxis,Falta de dos puntos en for,8.0,330,El siguiente código pretende construir una lista con los nombres en mayúscula a partir de una lista de cadenas. Indique cuál es el error y por qué impide su correcta ejecución.,"{""code"": ""def convertir_mayusculas(nombres: list[str]) -> list[str]:\n    resultado: list[str] = []\n    for nombre in nombres\n        resultado.append(nombre.upper())\n    return resultado\n\nprint(convertir_mayusculas([\""ana\"", \""luis\""]))"", ""sub_prompt"": ""\u00bfQu\u00e9 est\u00e1 mal en el c\u00f3digo anterior? Explique la causa exacta del error."", ""lines_count"": 5, ""lines_class"": ""lines-5""}"
+code_analysis,Identificación de Errores,Lógica de Diccionarios,Error lógico en conteo con diccionario,8.0,330,El siguiente código pretende contar cuántas veces aparece cada palabra de una lista usando un diccionario. Indique cuál es el error lógico o de sintaxis presente.,"{""code"": ""def contar_palabras(palabras: list[str]) -> dict[str, int]:\n    conteo: dict[str, int] = {}\n    for palabra in palabras:\n        if palabra not in conteo:\n            conteo[palabra] = 0\n        conteo[palabra] = 1\n    return conteo\n\nprint(contar_palabras([\""sol\"", \""luna\"", \""sol\""]))"", ""sub_prompt"": ""\u00bfQu\u00e9 est\u00e1 mal en el c\u00f3digo anterior? Explique la causa exacta del error."", ""lines_count"": 5, ""lines_class"": ""lines-5""}"
+association,Asociación de Conceptos,Métodos y Estructuras,Asociación de Conceptos Python,10.0,240,"Asocie las definiciones de la <strong>Columna A</strong> escribiendo la letra correspondiente en el espacio entre paréntesis de la <strong>Columna B</strong>. Cada ítem vale 2 puntos. Las opciones de la derecha pueden usarse una vez, varias veces o ninguna.","{""pairs"": [{""letter"": ""A"", ""definition"": ""M\u00e9todo de <code>str</code> que une los elementos de una lista de cadenas usando un separador."", ""concept"": ""<code>.join()</code>""}, {""letter"": ""B"", ""definition"": ""Estructura de datos que almacena pares llave-valor, donde las llaves son \u00fanicas."", ""concept"": ""<code>set</code>""}, {""letter"": ""C"", ""definition"": ""Colecci\u00f3n desordenada que no permite elementos duplicados."", ""concept"": ""<code>dict</code>""}, {""letter"": ""D"", ""definition"": ""M\u00e9todo de <code>list</code> que agrega un elemento al final de la lista."", ""concept"": ""<code>.append()</code>""}, {""letter"": ""E"", ""definition"": ""Anotaci\u00f3n de tipo (<code>typing</code>) que indica una lista de enteros."", ""concept"": ""<code>list[int]</code>""}], ""extra_distractors"": [""<code>.keys()</code>""]}"

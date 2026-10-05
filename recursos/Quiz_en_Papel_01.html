@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UCR - II-1119 Fundamentos de Tecnología Digital - Quiz en Papel #01</title>
+    <style>
+        /* --- ESTILOS GENERALES (PANTALLA) --- */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.4;
+            color: #111;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        /* Contenedor tamaño Carta Estándar (8.5 x 11 pulgadas) */
+        .page {
+            background: white;
+            width: 8.5in;
+            height: 11in;
+            margin: 0 auto 20px auto;
+            padding: 0.5in 0.6in 0.9in 0.6in;
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* --- ENCABEZADO E INFORMACIÓN DEL CURSO --- */
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 12px;
+        }
+        .header-table td {
+            border: 1px solid #000;
+            padding: 5px 8px;
+            vertical-align: top;
+        }
+        .institution-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 13px;
+            text-transform: uppercase;
+            background-color: #f5f5f5;
+        }
+
+        /* Datos del Estudiante */
+        .student-info {
+            width: 100%;
+            margin-bottom: 12px;
+            border-collapse: collapse;
+        }
+        .student-info td {
+            padding: 4px 2px;
+        }
+        .line-input {
+            border-bottom: 1px solid #000;
+        }
+
+        /* Instrucciones */
+        .instructions {
+            border: 1px dashed #000;
+            padding: 8px;
+            margin-bottom: 15px;
+            background-color: #fafafa;
+            text-align: justify;
+        }
+        .instructions h4 {
+            margin: 0 0 4px 0;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        /* --- TÍTULOS DE SECCIÓN CON PUNTAJE --- */
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 2px solid #000;
+            margin: 14px 0 10px 0;
+            padding-bottom: 3px;
+        }
+        .section-title h3 {
+            margin: 0;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+        .section-title .section-total {
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        /* --- FORMATOS DE PREGUNTAS --- */
+        .question-block {
+            margin-bottom: 12px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        .question-points {
+            font-weight: normal;
+            font-style: italic;
+            font-size: 10.5px;
+            color: #333;
+        }
+
+        /* Selección Única y Múltiple (2 Columnas) */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px 15px;
+            padding-left: 15px;
+        }
+        .option-item {
+            display: flex;
+            align-items: center;
+        }
+        .checkbox-sim {
+            width: 12px;
+            height: 12px;
+            border: 1px solid #000;
+            display: inline-block;
+            margin-right: 8px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+        .radio-sim {
+            border-radius: 50%;
+        }
+
+        /* Bloques de Código de Python (<pre><code>) */
+        .code-question-container {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            margin-top: 8px;
+        }
+        .python-code-box {
+            background-color: #f8f9fa;
+            border: 1px solid #999;
+            padding: 8px 12px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 11px;
+            line-height: 1.35;
+            margin: 0;
+            white-space: pre;
+        }
+        .code-question-content {
+            flex: 1;
+        }
+
+        /* --- ZONAS DE RESPUESTA (RENGLONES) --- */
+        .development-box {
+            margin-top: 8px;
+            width: 100%;
+            border: 1px solid #000;
+            box-sizing: border-box;
+        }
+
+        .lines-pattern {
+            background-image: linear-gradient(#bbb 1px, transparent 1px);
+            background-size: 100% 22px;
+            line-height: 22px;
+            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .lines-short { height: 67px; }
+        .lines-medium { height: 89px; }
+        .lines-large { height: 133px; }
+        .lines-xlarge { height: 155px; }
+		.lines-5 { height: 111px; }
+        .lines-6 { height: 133px; }
+		.lines-8 { height: 177px; }
+		.lines-10 { height: 221px; }
+
+        /* --- ASOCIACIÓN / APAREAMIENTO --- */
+        .association-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .association-table th {
+            border: 1px solid #000;
+            padding: 6px;
+        }
+        .association-table td {
+            padding: 7px 5px;
+            vertical-align: middle;
+            border-bottom: 1px dashed #ccc;
+        }
+        .col-left { width: 48%; }
+        .col-center { width: 8%; text-align: center; }
+        .col-right { width: 44%; }
+        .paren-sim {
+            display: inline-block;
+            width: 28px;
+            border-bottom: 1px solid #000;
+            text-align: center;
+        }
+
+        /* --- PIE DE PÁGINA --- */
+        .page-footer {
+            position: absolute;
+            bottom: 0.3in;
+            left: 0.6in;
+            right: 0.6in;
+            border-top: 1px solid #000;
+            padding-top: 6px;
+            font-size: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-student-verify {
+            display: flex;
+            gap: 15px;
+            width: 78%;
+        }
+        .footer-line {
+            display: inline-block;
+            border-bottom: 1px dashed #666;
+            height: 14px;
+        }
+
+        /* --- CONFIGURACIÓN ESTRICTA DE IMPRESIÓN --- */
+        @media print {
+            body {
+                background-color: #fff;
+                padding: 0;
+                margin: 0;
+            }
+            .page {
+                width: 8.5in;
+                height: 11in;
+                margin: 0;
+                padding: 0.5in 0.6in 0.9in 0.6in;
+                box-shadow: none;
+                page-break-after: always;
+                break-after: page;
+            }
+            .instructions {
+                background-color: #fff;
+            }
+        }
+
+        @page {
+            size: letter;
+            margin: 0;
+        }
+
+        /* Numeración automática de 4 páginas */
+        .page-1 .page-number::after { content: "Página 1 de 4"; }
+        .page-2 .page-number::after { content: "Página 2 de 4"; }
+        .page-3 .page-number::after { content: "Página 3 de 4"; }
+        .page-4 .page-number::after { content: "Página 4 de 4"; }
+    </style>
+</head>
+<body>
+
+    <!-- ============ PÁGINA 1 ============ -->
+    <div class="page page-1">
+        <table class="header-table">
+            <tr>
+                <td class="institution-title" colspan="3">
+                    Universidad de Costa Rica — Escuela de Ingeniería Industrial
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 45%;"><strong>Curso:</strong> II-1119 Fundamentos de Tecnología Digital</td>
+                <td style="width: 35%;"><strong>Carrera:</strong> Ingeniería Industrial</td>
+                <td style="width: 20%;" rowspan="3">
+                    <table style="width:100%; height:100%; text-align:center; border-collapse:collapse;">
+                        <tr><td style="border:none; background-color:#f5f5f5; font-weight:bold; font-size:11px;">NOTA</td></tr>
+                        <tr><td style="border:none; font-size:20px; padding:6px 0 2px 0;">/100</td></tr>
+                        <tr><td style="border:none; font-size:9px; padding:0 0 6px 0;">Puntos: ______ / 100</td></tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Evaluación:</strong> Quiz en Papel #01</td>
+                <td><strong>Fecha:</strong> ______/______/2026</td>
+            </tr>
+            <tr>
+                <td><strong>Periodo:</strong> I Ciclo Lectivo 2026</td>
+                <td><strong>Duración Máxima:</strong> 45 minutos</td>
+            </tr>
+        </table>
+
+        <table class="student-info">
+            <tr>
+                <td style="width: 10%;"><strong>Nombre:</strong></td>
+                <td class="line-input" style="width: 38%;"></td>
+                <td style="width: 10%; text-align: right;"><strong>Apellidos:</strong></td>
+                <td class="line-input" style="width: 28%;"></td>
+                <td style="width: 4%;"></td>
+            </tr>
+            <tr>
+                <td style="width: 10%;"><strong>Carné:</strong></td>
+                <td class="line-input" style="width: 38%;"></td>
+                <td style="width: 10%; text-align: right;"><strong>Grupo:</strong></td>
+                <td class="line-input" style="width: 28%;"></td>
+                <td style="width: 4%;"></td>
+            </tr>
+        </table>
+
+        <div class="instructions">
+            <h4>Instrucciones Generales:</h4>
+            <p style="margin: 0; font-size: 11px;">
+                Lea con atención cada enunciado antes de responder. Utilice bolígrafo de tinta azul o negra para las respuestas definitivas. Los círculos representan opciones de selección única y las casillas cuadradas indican que la pregunta admite selección múltiple (puede marcar más de una opción). No se permite el uso de dispositivos electrónicos con acceso a internet durante la prueba. <b>No se permiten reclamos en lápiz.</b>
+            </p>
+        </div>
+
+        <div class="section-title">
+            <h3>Parte I: Selección Única y Múltiple</h3>
+            <span class="section-total">Total sección: 50 puntos</span>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">1. ¿Cuál es el resultado de ejecutar <code>"Hola Mundo".lower()</code> en Python? <span class="question-points">(5 puntos — Selección única)</span></div>
+            <div class="options-grid">
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> a) "HOLA MUNDO"</div>
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> b) "hola mundo"</div>
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> c) "Hola Mundo"</div>
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> d) Genera un error</div>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">2. Dada la variable <code>texto: str = "  python  "</code>, ¿qué método elimina los espacios en blanco al inicio y al final de la cadena? <span class="question-points">(5 puntos — Selección única)</span></div>
+            <div class="options-grid">
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> a) texto.trim()</div>
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> b) texto.clean()</div>
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> c) texto.strip()</div>
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> d) texto.cut()</div>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">3. ¿Cuál es la principal diferencia entre una <code>list</code> y un <code>set</code> en Python? <span class="question-points">(5 puntos — Selección única)</span></div>
+            <div class="options-grid">
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> a) El set permite duplicados y la lista no.</div>
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> b) El set no mantiene orden ni permite duplicados.</div>
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> c) La lista no permite acceder por índice.</div>
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> d) No existen diferencias entre ambos.</div>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">4. Si <code>numeros: list[int] = [4, 8, 15, 16]</code>, ¿qué expresión obtiene correctamente el último elemento de la lista? <span class="question-points">(5 puntos — Selección única)</span></div>
+            <div class="options-grid">
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> a) numeros[-1]</div>
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> b) numeros[last]</div>
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> c) numeros[len(numeros)]</div>
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> d) numeros.end()</div>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">5. Dado <code>datos: dict[str, int] = {"a": 1, "b": 2}</code>, ¿qué método devuelve únicamente las llaves del diccionario? <span class="question-points">(5 puntos — Selección única)</span></div>
+            <div class="options-grid">
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> a) datos.values()</div>
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> b) datos.items()</div>
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> c) datos.keys()</div>
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> d) datos.get()</div>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">6. De los siguientes métodos de cadenas (<code>str</code>), seleccione los <u>dos</u> que sirven para verificar el contenido de una cadena sin modificarla: <span class="question-points">(5 puntos — Selección múltiple)</span></div>
+            <div class="options-grid">
+                <div class="option-item"><span class="checkbox-sim"></span> a) startswith()</div>
+                <div class="option-item"><span class="checkbox-sim"></span> b) replace()</div>
+                <div class="option-item"><span class="checkbox-sim"></span> c) isdigit()</div>
+                <div class="option-item"><span class="checkbox-sim"></span> d) split()</div>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">7. De los siguientes métodos aplicables a una lista (<code>list</code>), seleccione los <u>dos</u> que modifican la lista original en el mismo lugar (in-place): <span class="question-points">(5 puntos — Selección múltiple)</span></div>
+            <div class="options-grid">
+                <div class="option-item"><span class="checkbox-sim"></span> a) append()</div>
+                <div class="option-item"><span class="checkbox-sim"></span> b) sort()</div>
+                <div class="option-item"><span class="checkbox-sim"></span> c) copy()</div>
+                <div class="option-item"><span class="checkbox-sim"></span> d) count()</div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <div class="footer-student-verify">
+                <span>Estudiante: <span class="footer-line" style="width: 220px;"></span></span>
+                <span>Carné: <span class="footer-line" style="width: 90px;"></span></span>
+            </div>
+            <span class="page-number"></span>
+        </div>
+    </div>
+
+    <!-- ============ PÁGINA 2 ============ -->
+    <div class="page page-2">
+
+        <div class="question-block">
+            <div class="question-text">8. Sobre los conjuntos (<code>set</code>) y diccionarios (<code>dict</code>) en Python, seleccione las <u>dos</u> afirmaciones correctas: <span class="question-points">(5 puntos — Selección múltiple)</span></div>
+            <div class="options-grid">
+                <div class="option-item"><span class="checkbox-sim"></span> a) Un set puede contener elementos duplicados.</div>
+                <div class="option-item"><span class="checkbox-sim"></span> b) Las llaves de un dict deben ser únicas.</div>
+                <div class="option-item"><span class="checkbox-sim"></span> c) El método union() combina dos sets sin duplicar elementos.</div>
+                <div class="option-item"><span class="checkbox-sim"></span> d) Un dict se accede únicamente por índice numérico.</div>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">9. Si <code>frase: str = "Curso de Python"</code>, seleccione las <u>dos</u> expresiones que devuelven correctamente la palabra <code>"Python"</code>: <span class="question-points">(5 puntos — Selección múltiple)</span></div>
+            <div class="options-grid">
+                <div class="option-item"><span class="checkbox-sim"></span> a) frase.split()[-1]</div>
+                <div class="option-item"><span class="checkbox-sim"></span> b) frase[9:]</div>
+                <div class="option-item"><span class="checkbox-sim"></span> c) frase[0:6]</div>
+                <div class="option-item"><span class="checkbox-sim"></span> d) frase.upper()[9:]</div>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">10. Sobre la anotación de tipos (<code>typing</code>) en Python, seleccione las <u>dos</u> afirmaciones correctas: <span class="question-points">(5 puntos — Selección múltiple)</span></div>
+            <div class="options-grid">
+                <div class="option-item"><span class="checkbox-sim"></span> a) <code>nombre: str = "Ana"</code> es una anotación de tipo válida.</div>
+                <div class="option-item"><span class="checkbox-sim"></span> b) <code>edades: list[int]</code> indica una lista de enteros.</div>
+                <div class="option-item"><span class="checkbox-sim"></span> c) Las anotaciones de tipo son obligatorias para ejecutar el código.</div>
+                <div class="option-item"><span class="checkbox-sim"></span> d) Python lanza un error si el valor no coincide con el tipo anotado.</div>
+            </div>
+        </div>
+
+        <div class="section-title" style="margin-top: 18px;">
+            <h3>Parte II: Desarrollo</h3>
+            <span class="section-total">Total sección: 24 puntos</span>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">11. Explique con sus propias palabras la diferencia entre una <code>list[int]</code> y un <code>set[int]</code> en Python, mencionando al menos dos características distintivas de cada estructura. <span class="question-points">(8 puntos)</span></div>
+            <div class="development-box lines-pattern lines-10"></div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">12. Describa el propósito de un <code>dict[str, int]</code> en Python y explique cómo se accede y se actualiza el valor asociado a una llave existente. Incluya un ejemplo breve. <span class="question-points">(8 puntos)</span></div>
+            <div class="development-box lines-pattern lines-10"></div>
+        </div>
+
+        <div class="page-footer">
+            <div class="footer-student-verify">
+                <span>Estudiante: <span class="footer-line" style="width: 220px;"></span></span>
+                <span>Carné: <span class="footer-line" style="width: 90px;"></span></span>
+            </div>
+            <span class="page-number"></span>
+        </div>
+    </div>
+
+    <!-- ============ PÁGINA 3 ============ -->
+    <div class="page page-3">
+
+        <div class="question-block">
+            <div class="question-text">13. Explique qué significa que las cadenas (<code>str</code>) en Python sean inmutables. ¿Qué sucede al "modificar" una cadena con un método como <code>.replace()</code>? <span class="question-points">(8 puntos)</span></div>
+            <div class="development-box lines-pattern lines-10"></div>
+        </div>
+
+        <div class="section-title" style="margin-top: 14px;">
+            <h3>Parte III: Identificación de Errores en Código</h3>
+            <span class="section-total">Total sección: 16 puntos</span>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">14. El siguiente código pretende construir una lista con los nombres en mayúscula a partir de una lista de cadenas. Indique cuál es el error y por qué impide su correcta ejecución. <span class="question-points">(8 puntos)</span></div>
+            <div class="code-question-container">
+<pre class="python-code-box">def convertir_mayusculas(nombres: list[str]) -> list[str]:
+    resultado: list[str] = []
+    for nombre in nombres
+        resultado.append(nombre.upper())
+    return resultado
+
+print(convertir_mayusculas(["ana", "luis"]))</pre>
+                <div class="code-question-content">
+                    <div class="question-text" style="font-weight: normal; padding-left: 5px;">
+                        ¿Qué está mal en el código anterior? Explique la causa exacta del error.
+                    </div>
+                </div>
+            </div>
+            <div class="development-box lines-pattern lines-5"></div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">15. El siguiente código pretende contar cuántas veces aparece cada palabra de una lista usando un diccionario. Indique cuál es el error lógico o de sintaxis presente. <span class="question-points">(8 puntos)</span></div>
+            <div class="code-question-container">
+<pre class="python-code-box">def contar_palabras(palabras: list[str]) -> dict[str, int]:
+    conteo: dict[str, int] = {}
+    for palabra in palabras:
+        if palabra not in conteo:
+            conteo[palabra] = 0
+        conteo[palabra] = 1
+    return conteo
+
+print(contar_palabras(["sol", "luna", "sol"]))</pre>
+                <div class="code-question-content">
+                    <div class="question-text" style="font-weight: normal; padding-left: 5px;">
+                        ¿Qué está mal en el código anterior? Explique la causa exacta del error.
+                    </div>
+                </div>
+            </div>
+            <div class="development-box lines-pattern lines-5"></div>
+        </div>
+
+        <div class="page-footer">
+            <div class="footer-student-verify">
+                <span>Estudiante: <span class="footer-line" style="width: 220px;"></span></span>
+                <span>Carné: <span class="footer-line" style="width: 90px;"></span></span>
+            </div>
+            <span class="page-number"></span>
+        </div>
+    </div>
+
+    <!-- ============ PÁGINA 4 ============ -->
+    <div class="page page-4">
+
+        <div class="section-title">
+            <h3>Parte IV: Asociación de Conceptos</h3>
+            <span class="section-total">Total sección: 10 puntos</span>
+        </div>
+        <p style="margin: 0 0 4px 0;">Asocie las definiciones de la <strong>Columna A</strong> escribiendo la letra correspondiente en el espacio entre paréntesis de la <strong>Columna B</strong>. Cada ítem vale 2 puntos. Las opciones de la derecha pueden usarse una vez, varias veces o ninguna.</p>
+
+        <table class="association-table">
+            <thead>
+                <tr style="background-color: #f5f5f5; font-weight: bold;">
+                    <th style="text-align: left;">Columna A (Definición)</th>
+                    <th style="text-align: center;">Vínculo</th>
+                    <th style="text-align: left;">Columna B (Concepto)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="col-left"><strong>A.</strong> Método de <code>str</code> que une los elementos de una lista de cadenas usando un separador.</td>
+                    <td class="col-center">( <span class="paren-sim"></span> )</td>
+                    <td class="col-right"><code>.join()</code></td>
+                </tr>
+                <tr>
+                    <td class="col-left"><strong>B.</strong> Estructura de datos que almacena pares llave-valor, donde las llaves son únicas.</td>
+                    <td class="col-center">( <span class="paren-sim"></span> )</td>
+                    <td class="col-right"><code>set</code></td>
+                </tr>
+                <tr>
+                    <td class="col-left"><strong>C.</strong> Colección desordenada que no permite elementos duplicados.</td>
+                    <td class="col-center">( <span class="paren-sim"></span> )</td>
+                    <td class="col-right"><code>dict</code></td>
+                </tr>
+                <tr>
+                    <td class="col-left"><strong>D.</strong> Método de <code>list</code> que agrega un elemento al final de la lista.</td>
+                    <td class="col-center">( <span class="paren-sim"></span> )</td>
+                    <td class="col-right"><code>.append()</code></td>
+                </tr>
+                <tr>
+                    <td class="col-left"><strong>E.</strong> Anotación de tipo (<code>typing</code>) que indica una lista de enteros.</td>
+                    <td class="col-center">( <span class="paren-sim"></span> )</td>
+                    <td class="col-right"><code>list[int]</code></td>
+                </tr>
+				<!--
+                <tr>
+                    <td class="col-left"></td>
+                    <td class="col-center"></td>
+                    <td class="col-right"><code>.keys()</code></td>
+                </tr>
+				-->
+            </tbody>
+        </table>
+
+        <div style="margin-top: 22px; border-top: 1px solid #000; padding-top: 10px;">
+            <h3 style="margin: 0 0 8px 0; font-size: 13px; text-transform: uppercase;">Resumen de Calificación</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="background-color: #f5f5f5; font-weight: bold;">
+                    <td style="border: 1px solid #000; padding: 6px; text-align: left;">Sección</td>
+                    <td style="border: 1px solid #000; padding: 6px; text-align: center; width: 25%;">Puntaje Máximo</td>
+                    <td style="border: 1px solid #000; padding: 6px; text-align: center; width: 25%;">Puntaje Obtenido</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #000; padding: 6px;">Parte I: Selección Única y Múltiple</td>
+                    <td style="border: 1px solid #000; padding: 6px; text-align: center;">50</td>
+                    <td style="border: 1px solid #000; padding: 6px;"></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #000; padding: 6px;">Parte II: Desarrollo</td>
+                    <td style="border: 1px solid #000; padding: 6px; text-align: center;">24</td>
+                    <td style="border: 1px solid #000; padding: 6px;"></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #000; padding: 6px;">Parte III: Identificación de Errores</td>
+                    <td style="border: 1px solid #000; padding: 6px; text-align: center;">16</td>
+                    <td style="border: 1px solid #000; padding: 6px;"></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #000; padding: 6px;">Parte IV: Asociación de Conceptos</td>
+                    <td style="border: 1px solid #000; padding: 6px; text-align: center;">10</td>
+                    <td style="border: 1px solid #000; padding: 6px;"></td>
+                </tr>
+                <tr style="font-weight: bold;">
+                    <td style="border: 1px solid #000; padding: 6px;">Total</td>
+                    <td style="border: 1px solid #000; padding: 6px; text-align: center;">100</td>
+                    <td style="border: 1px solid #000; padding: 6px;"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="margin-top: 16px;">
+            <h3 style="margin: 0 0 6px 0; font-size: 13px; text-transform: uppercase;">Observaciones del Profesor</h3>
+            <div class="development-box lines-pattern lines-10"></div>
+        </div>
+
+        <div class="page-footer">
+            <div class="footer-student-verify">
+                <span>Estudiante: <span class="footer-line" style="width: 220px;"></span></span>
+                <span>Carné: <span class="footer-line" style="width: 90px;"></span></span>
+            </div>
+            <span class="page-number"></span>
+        </div>
+    </div>
+
+</body>
+</html>
