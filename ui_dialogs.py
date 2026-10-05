@@ -15,6 +15,21 @@ import height_calculator
 import importer_exporter
 
 
+
+def center_window(window: tk.Wm, width: Optional[int] = None, height: Optional[int] = None):
+    """
+    Centra una ventana respecto a la pantalla del monitor.
+    """
+    window.update_idletasks()
+    w = width if width is not None else window.winfo_reqwidth()
+    h = height if height is not None else window.winfo_reqheight()
+    screen_w = window.winfo_screenwidth()
+    screen_h = window.winfo_screenheight()
+    x = max(0, (screen_w - w) // 2)
+    y = max(0, (screen_h - h) // 2)
+    window.geometry(f"{w}x{h}+{x}+{y}")
+
+
 class QuestionEditorDialog(tk.Toplevel):
     """
     Diálogo para crear o editar una pregunta completa del banco,
@@ -31,8 +46,8 @@ class QuestionEditorDialog(tk.Toplevel):
         self.img2_b64 = None
 
         self.title("Editar Pregunta" if question_id else "Nueva Pregunta")
-        self.geometry("820x720")
         self.minsize(740, 600)
+        center_window(self, 820, 720)
         self.transient(parent)
         self.grab_set()
 
@@ -217,14 +232,14 @@ class QuestionEditorDialog(tk.Toplevel):
         self.tf_text = tk.Text(self.dynamic_frame, height=4, font=("Segoe UI", 9), wrap=tk.WORD)
         self.tf_text.pack(fill=tk.BOTH, expand=True)
         self.tf_text.bind("<KeyRelease>", lambda e: self._recalculate_height())
-        ttk.Label(self.dynamic_frame, text="💡 Si deja este campo vacío, la pregunta se evalúa directamente con el enunciado principal con ( ) V  ( ) F.", font=("Segoe UI", 8, "italic")).pack(anchor=tk.W, pady=(4, 0))
+        ttk.Label(self.dynamic_frame, text="💡 Si deja este campo vacío, la pregunta se evalúa directamente con el enunciado principal y opciones Verdadero / Falso.", font=("Segoe UI", 8, "italic")).pack(anchor=tk.W, pady=(4, 0))
 
     # --- Desarrollo con Renglones ---
     def _build_development_ui(self):
         row = ttk.Frame(self.dynamic_frame)
         row.pack(anchor=tk.W, pady=5)
         ttk.Label(row, text="Cantidad de Renglones para Responder:").pack(side=tk.LEFT, padx=(0, 10))
-        self.lines_spin = ttk.Spinbox(row, from_=2, to=30, increment=1, width=8)
+        self.lines_spin = ttk.Spinbox(row, from_=0, to=30, increment=1, width=8)
         self.lines_spin.set("10")
         self.lines_spin.pack(side=tk.LEFT)
         self.lines_spin.bind("<KeyRelease>", lambda e: self._recalculate_height())
@@ -234,7 +249,7 @@ class QuestionEditorDialog(tk.Toplevel):
         row = ttk.Frame(self.dynamic_frame)
         row.pack(anchor=tk.W, pady=5)
         ttk.Label(row, text="Espacio para escribir código (en equivalencia de renglones):").pack(side=tk.LEFT, padx=(0, 10))
-        self.code_write_lines_spin = ttk.Spinbox(row, from_=4, to=40, increment=1, width=8)
+        self.code_write_lines_spin = ttk.Spinbox(row, from_=0, to=40, increment=1, width=8)
         self.code_write_lines_spin.set("12")
         self.code_write_lines_spin.pack(side=tk.LEFT)
         self.code_write_lines_spin.bind("<KeyRelease>", lambda e: self._recalculate_height())
@@ -256,7 +271,7 @@ class QuestionEditorDialog(tk.Toplevel):
         row = ttk.Frame(self.dynamic_frame)
         row.pack(anchor=tk.W)
         ttk.Label(row, text="Renglones de respuesta:").pack(side=tk.LEFT, padx=(0, 10))
-        self.code_lines_spin = ttk.Spinbox(row, from_=2, to=20, increment=1, width=8)
+        self.code_lines_spin = ttk.Spinbox(row, from_=0, to=20, increment=1, width=8)
         self.code_lines_spin.set("5")
         self.code_lines_spin.pack(side=tk.LEFT)
         self.code_lines_spin.bind("<KeyRelease>", lambda e: self._recalculate_height())
@@ -667,7 +682,7 @@ class SelectQuestionsDialog(tk.Toplevel):
         self.selected_questions: List[Dict[str, Any]] = []
 
         self.title("Seleccionar Preguntas del Banco")
-        self.geometry("900x560")
+        center_window(self, 900, 560)
         self.transient(parent)
         self.grab_set()
 
@@ -796,8 +811,8 @@ class AssignPageDialog(tk.Toplevel):
         self.selected_page = None
 
         self.title("Asignar Página")
-        self.geometry("320x180")
         self.resizable(False, False)
+        center_window(self, 320, 180)
         self.transient(parent)
         self.grab_set()
 

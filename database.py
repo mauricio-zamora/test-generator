@@ -483,7 +483,7 @@ def seed_sample_data(conn: sqlite3.Connection):
             subcat_map["Métodos y Estructuras"],
             "association",
             "Asociación de Conceptos Python",
-            "Asocie las definiciones de la <strong>Columna A</strong> escribiendo la letra correspondiente en el espacio entre paréntesis de la <strong>Columna B</strong>. Cada ítem vale 2 puntos. Las opciones de la derecha pueden usarse una vez, varias veces o ninguna.",
+            "Asocie las definiciones de la <strong>Columna A</strong> escribiendo la letra correspondiente en el espacio entre paréntesis de la <strong>Columna B</strong>. Cada ítem vale 2 puntos.",
             10.0,
             240,
             json.dumps({
@@ -496,12 +496,12 @@ def seed_sample_data(conn: sqlite3.Connection):
                     {
                         "letter": "B",
                         "definition": "Estructura de datos que almacena pares llave-valor, donde las llaves son únicas.",
-                        "concept": "<code>set</code>"
+                        "concept": "<code>dict</code>"
                     },
                     {
                         "letter": "C",
                         "definition": "Colección desordenada que no permite elementos duplicados.",
-                        "concept": "<code>dict</code>"
+                        "concept": "<code>set</code>"
                     },
                     {
                         "letter": "D",
@@ -514,7 +514,7 @@ def seed_sample_data(conn: sqlite3.Connection):
                         "concept": "<code>list[int]</code>"
                     }
                 ],
-                "extra_distractors": ["<code>.keys()</code>"]
+                "extra_distractors": []
             })
         ),
     ]
@@ -785,7 +785,8 @@ def get_exam_by_id(exam_id: int, db_path: str = DB_FILE) -> Optional[Dict[str, A
 
     cur.execute("""
         SELECT ei.*, q.title as question_title, q.question_text, q.question_type,
-               q.points as original_points, q.estimated_height as original_height,
+               q.points, q.points as original_points,
+               q.estimated_height, q.estimated_height as original_height,
                q.extra_data, c.name as category_name, c.section_title
         FROM exam_items ei
         JOIN questions q ON ei.question_id = q.id

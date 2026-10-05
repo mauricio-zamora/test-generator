@@ -16,7 +16,7 @@ import database
 import height_calculator
 import html_generator
 import importer_exporter
-from ui_dialogs import SelectQuestionsDialog, AssignPageDialog
+from ui_dialogs import SelectQuestionsDialog, AssignPageDialog, center_window
 
 
 class ExamTab(ttk.Frame):
@@ -190,7 +190,7 @@ class ExamTab(ttk.Frame):
         r_obs_lines = ttk.Frame(sections_cfg_group)
         r_obs_lines.pack(fill=tk.X, pady=(3, 0))
         ttk.Label(r_obs_lines, text="Renglones de Observaciones:").pack(side=tk.LEFT, padx=(22, 5))
-        self.spin_obs_lines = ttk.Spinbox(r_obs_lines, from_=3, to=25, increment=1, width=5)
+        self.spin_obs_lines = ttk.Spinbox(r_obs_lines, from_=0, to=25, increment=1, width=5)
         self.spin_obs_lines.set("8")
         self.spin_obs_lines.pack(side=tk.LEFT)
         self.spin_obs_lines.bind("<KeyRelease>", lambda e: self.update_pagination_analysis())
@@ -452,7 +452,7 @@ class ExamTab(ttk.Frame):
 
         win = tk.Toplevel(self)
         win.title("Cargar Examen Guardado")
-        win.geometry("560x340")
+        center_window(win, 560, 340)
         win.transient(self)
         win.grab_set()
 
@@ -750,8 +750,8 @@ class ExamTab(ttk.Frame):
 
         win = tk.Toplevel(self)
         win.title("Modificar Ítem en este Examen")
-        win.geometry("380x240")
         win.resizable(False, False)
+        center_window(win, 380, 240)
         win.transient(self)
         win.grab_set()
 

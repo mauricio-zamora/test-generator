@@ -23,8 +23,9 @@ class ExamGeneratorApp(tk.Tk):
 
         # Configuración de Ventana Principal
         self.title("Generador de Exámenes Impresos en Papel (Tamaño Carta)")
-        self.geometry("1300x840")
         self.minsize(1080, 700)
+        from ui_dialogs import center_window
+        center_window(self, 1300, 840)
 
         # Configurar estilo visual moderno
         self._configure_styles()

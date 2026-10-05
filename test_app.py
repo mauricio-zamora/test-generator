@@ -136,6 +136,122 @@ class TestExamGeneratorExtended(unittest.TestCase):
         if os.path.exists(reset_db):
             os.remove(reset_db)
 
+    def test_07_true_false_format_like_selection(self):
+        # 1. Pregunta individual de Falso y Verdadero
+        item_single = {
+            "question_type": "true_false",
+            "question_text": "Python es un lenguaje compilado directamente a código máquina.",
+            "points": 5.0,
+            "extra_data": json.dumps({})
+        }
+        rendered_single = html_generator.render_single_item(item_single, 1)
+        # El enunciado va primero en question-text
+        pos_text = rendered_single.find("Python es un lenguaje compilado")
+        pos_options = rendered_single.find("options-grid")
+        pos_v = rendered_single.find("Verdadero", pos_options)
+        pos_f = rendered_single.find("Falso", pos_v)
+
+        self.assertNotEqual(pos_text, -1)
+        self.assertNotEqual(pos_options, -1)
+        self.assertLess(pos_text, pos_options, "El enunciado debe aparecer antes de las opciones de marcado")
+        self.assertLess(pos_options, pos_v)
+        self.assertLess(pos_v, pos_f)
+        # Estilo idéntico a selección
+        self.assertIn("checkbox-sim radio-sim", rendered_single)
+
+        # 2. Pregunta con sub-afirmaciones
+        item_multi = {
+            "question_type": "true_false",
+            "question_text": "Evalúe las siguientes afirmaciones:",
+            "points": 6.0,
+            "extra_data": json.dumps({
+                "statements": ["Las tuplas son inmutables.", "Los diccionarios no permiten llaves duplicadas."]
+            })
+        }
+        rendered_multi = html_generator.render_single_item(item_multi, 2)
+        pos_stmt1 = rendered_multi.find("Las tuplas son inmutables.")
+        pos_opt_stmt1 = rendered_multi.find("tf-options-grid")
+        self.assertNotEqual(pos_stmt1, -1)
+        self.assertNotEqual(pos_opt_stmt1, -1)
+        self.assertLess(pos_stmt1, pos_opt_stmt1, "La afirmación debe aparecer antes de sus opciones para marcar")
+
+    def test_08_zero_lines_count_rendering_and_height(self):
+        # Desarrollo con 0 renglones
+        item_dev = {
+            "question_type": "development",
+            "question_text": "Explique el algoritmo de ordenamiento:",
+            "points": 5.0,
+            "extra_data": json.dumps({"lines_count": 0})
+        }
+        rendered_dev = html_generator.render_single_item(item_dev, 1)
+        self.assertNotIn("development-box", rendered_dev)
+        h_dev = height_calculator.estimate_item_height("development", item_dev["question_text"], {"lines_count": 0})
+        self.assertGreater(h_dev, 30)
+
+        # Escritura de código con 0 renglones
+        item_cw = {
+            "question_type": "code_writing",
+            "question_text": "Escriba el código:",
+            "points": 5.0,
+            "extra_data": json.dumps({"lines_count": 0})
+        }
+        rendered_cw = html_generator.render_single_item(item_cw, 2)
+        self.assertNotIn("development-box", rendered_cw)
+        self.assertNotIn("code-writing-box", rendered_cw)
+
+        # Observaciones con 0 renglones
+        exam = {
+            "title": "Examen",
+            "institution": "Colegio",
+            "course_code": "PROG",
+            "course_name": "Prog",
+            "career": "Ing",
+            "professor": "Prof",
+            "group_name": "G1",
+            "exam_date": "2026-10-05",
+            "period": "II",
+            "duration": "60 min",
+            "instructions_text": "Indicaciones",
+            "show_grading_summary": False,
+            "show_observations": True,
+            "observations_lines": 0,
+            "observations_page": 1,
+            "items": []
+        }
+        html_exam = html_generator.generate_exam_html(exam, [])
+        self.assertIn("Observaciones del Profesor", html_exam)
+        self.assertNotIn('class="development-box lines-pattern"', html_exam)
+
+    def test_09_association_matching_and_center_window(self):
+        # 1. Verificar carga de examen y que los puntos no sean None
+        exam = database.get_exam_by_id(1, self.test_db)
+        self.assertIsNotNone(exam)
+        for it in exam["items"]:
+            self.assertIsNotNone(it.get("points"), f"El ítem {it.get('question_title')} debe tener puntos asignados")
+
+        # 2. Verificar que la pregunta de asociación tenga 5 en A y 5 en B sin distractores
+        assoc_item = [i for i in exam["items"] if i.get("question_type") == "association"][0]
+        rendered = html_generator.render_single_item(assoc_item, 16)
+        self.assertIn("(10 puntos)", rendered)
+        self.assertNotIn(".keys()", rendered)
+        self.assertEqual(rendered.count('class="col-left"'), 5)
+        self.assertEqual(rendered.count('class="col-right"'), 5)
+
+        # 3. Probar lógica de center_window
+        import ui_dialogs
+        import tkinter as tk
+        root = tk.Tk()
+        root.withdraw()
+        top = tk.Toplevel(root)
+        ui_dialogs.center_window(top, 500, 300)
+        top.update()
+        geom = top.geometry()  # e.g., '500x300+X+Y'
+        self.assertTrue(geom.startswith("500x300+"))
+        top.destroy()
+        root.destroy()
+
 
 if __name__ == "__main__":
     unittest.main()
+
+

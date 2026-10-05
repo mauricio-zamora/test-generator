@@ -8,6 +8,7 @@ from tkinter import ttk, messagebox, filedialog
 from typing import Optional, Callable
 import database
 import importer_exporter
+from ui_dialogs import center_window
 
 
 class CategoriesTab(ttk.Frame):
@@ -115,8 +116,8 @@ class CategoriesTab(ttk.Frame):
     def _category_form_dialog(self, cat_id: Optional[int] = None, name: str = "", order: int = 1):
         win = tk.Toplevel(self)
         win.title("Editar Categoría" if cat_id else "Nueva Categoría")
-        win.geometry("420x210")
         win.resizable(False, False)
+        center_window(win, 420, 210)
         win.transient(self)
         win.grab_set()
 
@@ -187,8 +188,8 @@ class CategoriesTab(ttk.Frame):
 
         win = tk.Toplevel(self)
         win.title(f"Nueva Subcategoría en '{cat_name}'")
-        win.geometry("400x180")
         win.resizable(False, False)
+        center_window(win, 400, 180)
         win.transient(self)
         win.grab_set()
 

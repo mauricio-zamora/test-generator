@@ -265,22 +265,37 @@ class QuestionsTab(ttk.Frame):
                 sym = "○" if t == "single_choice" else "□"
                 lines.append(f"  {sym} {opt}")
         elif t == "true_false":
-            lines.append("FORMATO FALSO Y VERDADERO:")
             stmts = extra.get("statements", [])
             if stmts:
+                lines.append("AFIRMACIONES (FALSO / VERDADERO):")
                 for s in stmts:
-                    lines.append(f"  ( ) V   ( ) F   {s}")
+                    lines.append(f"  • {s}")
+                    lines.append("      ○ Verdadero    ○ Falso")
             else:
-                lines.append("  ( ) V   ( ) F   [Enunciado principal]")
+                lines.append("OPCIONES:")
+                lines.append("  ○ Verdadero")
+                lines.append("  ○ Falso")
         elif t == "development":
-            lines.append(f"ZONA DE RESPUESTA: {extra.get('lines_count', 10)} renglones con líneas horizontales.")
+            lc = int(extra.get("lines_count", 10))
+            if lc > 0:
+                lines.append(f"ZONA DE RESPUESTA: {lc} renglones con líneas horizontales.")
+            else:
+                lines.append("ZONA DE RESPUESTA: Sin renglones.")
         elif t == "code_writing":
-            lines.append(f"ESPACIO PARA ESCRIBIR CÓDIGO: Recuadro en blanco de altura equivalente a {extra.get('lines_count', 12)} renglones (sin líneas impresas).")
+            lc = int(extra.get("lines_count", 12))
+            if lc > 0:
+                lines.append(f"ESPACIO PARA ESCRIBIR CÓDIGO: Recuadro en blanco de altura equivalente a {lc} renglones (sin líneas impresas).")
+            else:
+                lines.append("ESPACIO PARA ESCRIBIR CÓDIGO: Sin recuadro.")
         elif t == "code_analysis":
             lines.append("CÓDIGO:")
             lines.append(extra.get("code", ""))
             lines.append(f"\nPREGUNTA DE ANÁLISIS: {extra.get('sub_prompt', '')}")
-            lines.append(f"ZONA DE RESPUESTA: {extra.get('lines_count', 5)} renglones.")
+            lc = int(extra.get("lines_count", 5))
+            if lc > 0:
+                lines.append(f"ZONA DE RESPUESTA: {lc} renglones.")
+            else:
+                lines.append("ZONA DE RESPUESTA: Sin renglones.")
         elif t == "single_image":
             lines.append(f"IMAGEN: Ancho {extra.get('image_width_percent', 70)}%")
             if extra.get("text_before"):

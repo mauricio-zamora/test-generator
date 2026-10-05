@@ -262,10 +262,11 @@ def generate_exam_html(exam_data: Dict[str, Any], items: List[Dict[str, Any]]) -
         # Observaciones del Profesor en la página especificada
         if show_observations and page_num == actual_obs_page:
             lines_h = int(observations_lines * 22) + 2
+            obs_box_html = f'<div class="development-box lines-pattern" style="height: {lines_h}px;"></div>' if observations_lines > 0 else ''
             page_content.append(f"""
         <div style="margin-top: 14px;">
             <h3 style="margin: 0 0 6px 0; font-size: 13px; text-transform: uppercase;">Observaciones del Profesor</h3>
-            <div class="development-box lines-pattern" style="height: {lines_h}px;"></div>
+            {obs_box_html}
         </div>
 """)
 
@@ -428,12 +429,17 @@ def generate_exam_html(exam_data: Dict[str, Any], items: List[Dict[str, Any]]) -
         /* Falso y Verdadero */
         .tf-container {{
             margin-top: 6px;
-            padding-left: 10px;
+            padding-left: 15px;
         }}
         .tf-item {{
-            display: flex;
-            align-items: center;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+        }}
+        .tf-statement-text {{
+            margin-bottom: 3px;
+        }}
+        .tf-options-grid {{
+            margin-top: 2px;
+            padding-left: 15px;
         }}
         .tf-badges {{
             display: inline-flex;
@@ -670,13 +676,14 @@ def render_single_item(item: Dict[str, Any], question_num: int) -> str:
         if statements:
             rows_html = []
             for st in statements:
+                bullet = "" if (st.startswith(("-", "*", "•")) or (len(st) > 2 and st[1] in (")", "."))) else "• "
                 rows_html.append(f"""
                 <div class="tf-item">
-                    <div class="tf-badges">
-                        <span><span class="tf-circle"></span><strong>V</strong></span>
-                        <span><span class="tf-circle"></span><strong>F</strong></span>
+                    <div class="tf-statement-text">{bullet}{st}</div>
+                    <div class="options-grid tf-options-grid">
+                        <div class="option-item"><span class="checkbox-sim radio-sim"></span> Verdadero</div>
+                        <div class="option-item"><span class="checkbox-sim radio-sim"></span> Falso</div>
                     </div>
-                    <div>{st}</div>
                 </div>""")
             return f"""
         <div class="question-block">
@@ -689,37 +696,41 @@ def render_single_item(item: Dict[str, Any], question_num: int) -> str:
         else:
             return f"""
         <div class="question-block">
-            <div class="question-text">
-                <span style="margin-right: 10px;">
-                    <span class="tf-circle"></span><strong>V</strong> &nbsp;
-                    <span class="tf-circle"></span><strong>F</strong>
-                </span>
-                {question_num}. {text} <span class="question-points">{pts_label}</span>
+            <div class="question-text">{question_num}. {text} <span class="question-points">{pts_label}</span></div>
+            <div class="options-grid">
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> Verdadero</div>
+                <div class="option-item"><span class="checkbox-sim radio-sim"></span> Falso</div>
             </div>
         </div>
 """
 
     elif q_type == "development":
         lines_count = int(extra.get("lines_count", 10))
-        lines_class = f"lines-{lines_count}" if lines_count in (5, 6, 8, 10) else ""
-        style_attr = f' style="height: {lines_count * 22 + 1}px;"' if not lines_class else ""
+        lines_box = ""
+        if lines_count > 0:
+            lines_class = f"lines-{lines_count}" if lines_count in (5, 6, 8, 10) else ""
+            style_attr = f' style="height: {lines_count * 22 + 1}px;"' if not lines_class else ""
+            lines_box = f'<div class="development-box lines-pattern {lines_class}"{style_attr}></div>'
         pts_label = f"({pts_str} puntos)"
         return f"""
         <div class="question-block">
             <div class="question-text">{question_num}. {text} <span class="question-points">{pts_label}</span></div>
-            <div class="development-box lines-pattern {lines_class}"{style_attr}></div>
+            {lines_box}
         </div>
 """
 
     elif q_type == "code_writing":
         # Espacio para escribir código en blanco (SIN renglones impresos)
         lines_count = int(extra.get("lines_count", 12))
-        box_h = lines_count * 22 + 1
+        box_html = ""
+        if lines_count > 0:
+            box_h = lines_count * 22 + 1
+            box_html = f'<div class="development-box code-writing-box" style="height: {box_h}px;"></div>'
         pts_label = f"({pts_str} puntos)"
         return f"""
         <div class="question-block">
             <div class="question-text">{question_num}. {text} <span class="question-points">{pts_label}</span></div>
-            <div class="development-box code-writing-box" style="height: {box_h}px;"></div>
+            {box_html}
         </div>
 """
 
@@ -727,8 +738,11 @@ def render_single_item(item: Dict[str, Any], question_num: int) -> str:
         code = extra.get("code", "")
         sub_prompt = extra.get("sub_prompt", "")
         lines_count = int(extra.get("lines_count", 5))
-        lines_class = f"lines-{lines_count}" if lines_count in (5, 6, 8, 10) else ""
-        style_attr = f' style="height: {lines_count * 22 + 1}px;"' if not lines_class else ""
+        lines_box = ""
+        if lines_count > 0:
+            lines_class = f"lines-{lines_count}" if lines_count in (5, 6, 8, 10) else ""
+            style_attr = f' style="height: {lines_count * 22 + 1}px;"' if not lines_class else ""
+            lines_box = f'<div class="development-box lines-pattern {lines_class}"{style_attr}></div>'
         pts_label = f"({pts_str} puntos)"
         return f"""
         <div class="question-block">
@@ -741,7 +755,7 @@ def render_single_item(item: Dict[str, Any], question_num: int) -> str:
                     </div>
                 </div>
             </div>
-            <div class="development-box lines-pattern {lines_class}"{style_attr}></div>
+            {lines_box}
         </div>
 """
 

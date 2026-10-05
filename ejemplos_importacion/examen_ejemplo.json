@@ -318,11 +318,11 @@
       "custom_height": null,
       "custom_text": null,
       "question_title": "Asociación de Conceptos Python",
-      "question_text": "Asocie las definiciones de la <strong>Columna A</strong> escribiendo la letra correspondiente en el espacio entre paréntesis de la <strong>Columna B</strong>. Cada ítem vale 2 puntos. Las opciones de la derecha pueden usarse una vez, varias veces o ninguna.",
+      "question_text": "Asocie las definiciones de la <strong>Columna A</strong> escribiendo la letra correspondiente en el espacio entre paréntesis de la <strong>Columna B</strong>. Cada ítem vale 2 puntos.",
       "question_type": "association",
       "original_points": 10.0,
       "original_height": 240,
-      "extra_data": "{\"pairs\": [{\"letter\": \"A\", \"definition\": \"M\\u00e9todo de <code>str</code> que une los elementos de una lista de cadenas usando un separador.\", \"concept\": \"<code>.join()</code>\"}, {\"letter\": \"B\", \"definition\": \"Estructura de datos que almacena pares llave-valor, donde las llaves son \\u00fanicas.\", \"concept\": \"<code>set</code>\"}, {\"letter\": \"C\", \"definition\": \"Colecci\\u00f3n desordenada que no permite elementos duplicados.\", \"concept\": \"<code>dict</code>\"}, {\"letter\": \"D\", \"definition\": \"M\\u00e9todo de <code>list</code> que agrega un elemento al final de la lista.\", \"concept\": \"<code>.append()</code>\"}, {\"letter\": \"E\", \"definition\": \"Anotaci\\u00f3n de tipo (<code>typing</code>) que indica una lista de enteros.\", \"concept\": \"<code>list[int]</code>\"}], \"extra_distractors\": [\"<code>.keys()</code>\"]}",
+      "extra_data": "{\"pairs\": [{\"letter\": \"A\", \"definition\": \"M\\u00e9todo de <code>str</code> que une los elementos de una lista de cadenas usando un separador.\", \"concept\": \"<code>.join()</code>\"}, {\"letter\": \"B\", \"definition\": \"Estructura de datos que almacena pares llave-valor, donde las llaves son \\u00fanicas.\", \"concept\": \"<code>dict</code>\"}, {\"letter\": \"C\", \"definition\": \"Colecci\\u00f3n desordenada que no permite elementos duplicados.\", \"concept\": \"<code>set</code>\"}, {\"letter\": \"D\", \"definition\": \"M\\u00e9todo de <code>list</code> que agrega un elemento al final de la lista.\", \"concept\": \"<code>.append()</code>\"}, {\"letter\": \"E\", \"definition\": \"Anotaci\\u00f3n de tipo (<code>typing</code>) que indica una lista de enteros.\", \"concept\": \"<code>list[int]</code>\"}], \"extra_distractors\": []}",
       "category_name": "Asociación de Conceptos",
       "section_title": "Parte IV: Asociación de Conceptos"
     }

@@ -30,7 +30,7 @@ Aplicación de escritorio profesional desarrollada en **Python (Tkinter)** con p
 ### 4. Nuevos Tipos de Preguntas e Ítems
 1. **Selección Única**: Círculos radiales simulados (`○ a) ...`).
 2. **Selección Múltiple**: Casillas cuadradas simuladas (`□ a) ...`).
-3. **Falso y Verdadero**: Afirmaciones con selector `( ) V   ( ) F` para enunciado individual o lista de afirmaciones.
+3. **Falso y Verdadero**: Formato idéntico a selección (enunciado primero y opciones Verdadero / Falso abajo para marcar), para enunciado individual o lista de afirmaciones.
 4. **Desarrollo (con Renglones)**: Renglones reglamentarios a 22px de espaciado con líneas horizontales impresas.
 5. **Escritura de Código Fuente (Recuadro en Blanco)**: Recuadro en blanco con altura equivalente a N renglones, **sin líneas horizontales impresas**, diseñado para que el estudiante escriba código con sangría clara y limpia.
 6. **Identificación de Errores / Código**: Caja de código Python en `<pre class="python-code-box">` + pregunta de análisis + renglones de respuesta.

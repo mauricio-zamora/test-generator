@@ -70,21 +70,23 @@ def estimate_item_height(
     elif question_type == "true_false":
         statements = extra.get("statements", [])
         if statements:
-            rows_height = len(statements) * int(24 * scale)
+            rows_height = len(statements) * int(42 * scale)
         else:
             rows_height = int(28 * scale)
         return max(50, question_text_height + rows_height + 12)
 
     elif question_type == "development":
         lines_count = int(extra.get("lines_count", 10))
-        lines_height = lines_count * 22 + 2
-        return max(70, question_text_height + 8 + lines_height + 12)
+        lines_height = (lines_count * 22 + 2) if lines_count > 0 else 0
+        extra_h = (8 + lines_height) if lines_count > 0 else 0
+        return max(40, question_text_height + extra_h + 12)
 
     elif question_type == "code_writing":
         # Recuadro en blanco sin renglones impresos
         lines_count = int(extra.get("lines_count", 12))
-        box_height = lines_count * 22 + 2
-        return max(70, question_text_height + 8 + box_height + 12)
+        box_height = (lines_count * 22 + 2) if lines_count > 0 else 0
+        extra_h = (8 + box_height) if lines_count > 0 else 0
+        return max(40, question_text_height + extra_h + 12)
 
     elif question_type == "code_analysis":
         code = extra.get("code", "")
@@ -95,8 +97,9 @@ def estimate_item_height(
         sub_prompt_height = int(sub_prompt_lines * text_line_h)
         container_height = max(code_box_height, sub_prompt_height) + 8
         lines_count = int(extra.get("lines_count", 5))
-        lines_height = lines_count * 22 + 2
-        return max(120, question_text_height + container_height + 8 + lines_height + 12)
+        lines_height = (lines_count * 22 + 2) if lines_count > 0 else 0
+        extra_h = (8 + lines_height) if lines_count > 0 else 0
+        return max(80, question_text_height + container_height + extra_h + 12)
 
     elif question_type == "single_image":
         text_before = extra.get("text_before", "")
@@ -249,7 +252,7 @@ def analyze_exam_pagination(
 
         # Sumar Observaciones del Profesor si están asignadas a esta página
         if show_observations and p == actual_obs_page:
-            obs_box_h = int(observations_lines * 22) + 36
+            obs_box_h = (int(observations_lines * 22) + 36) if observations_lines > 0 else 24
             used_px += obs_box_h
 
         percentage = round((used_px / capacity) * 100, 1) if capacity > 0 else 0
