@@ -269,6 +269,11 @@ class ExamTab(ttk.Frame):
         self.items_tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
         self.items_tree.bind("<Double-1>", lambda e: self._quick_edit_item())
+        self.items_tree.bind("<Button-3>", self._show_tree_context_menu)
+        self.items_tree.bind("<Alt-Up>", lambda e: (self._move_item_up(), "break")[1])
+        self.items_tree.bind("<Alt-Down>", lambda e: (self._move_item_down(), "break")[1])
+        self.items_tree.bind("<Control-Up>", lambda e: (self._move_item_up(), "break")[1])
+        self.items_tree.bind("<Control-Down>", lambda e: (self._move_item_down(), "break")[1])
 
     def _update_page_combos(self):
         max_p = max([int(it.get("page_number", 1)) for it in self.exam_items], default=4)
@@ -683,22 +688,79 @@ class ExamTab(ttk.Frame):
     def _move_item_up(self):
         selected = self.items_tree.selection()
         if not selected:
+            messagebox.showinfo("Mover Pregunta", "Seleccione una pregunta en la lista para subirla.", parent=self)
             return
         idx = int(selected[0])
-        if idx > 0:
-            self.exam_items[idx - 1], self.exam_items[idx] = self.exam_items[idx], self.exam_items[idx - 1]
-            self.refresh_items_tree()
-            self.items_tree.selection_set(str(idx - 1))
+        if idx <= 0:
+            return
+
+        item_curr = self.exam_items[idx]
+        item_prev = self.exam_items[idx - 1]
+
+        # Si están en páginas distintas, intercambiamos sus números de página
+        p_curr = int(item_curr.get("page_number", 1))
+        p_prev = int(item_prev.get("page_number", 1))
+        if p_curr != p_prev:
+            item_curr["page_number"] = p_prev
+            item_prev["page_number"] = p_curr
+
+        # Intercambiar elementos en la lista
+        self.exam_items[idx - 1], self.exam_items[idx] = self.exam_items[idx], self.exam_items[idx - 1]
+
+        # Actualizar item_order secuencial
+        for i, it in enumerate(self.exam_items, start=1):
+            it["item_order"] = i
+
+        self.refresh_items_tree()
+        self.items_tree.selection_set(str(idx - 1))
+        self.items_tree.see(str(idx - 1))
 
     def _move_item_down(self):
         selected = self.items_tree.selection()
         if not selected:
+            messagebox.showinfo("Mover Pregunta", "Seleccione una pregunta en la lista para bajarla.", parent=self)
             return
         idx = int(selected[0])
-        if idx < len(self.exam_items) - 1:
-            self.exam_items[idx + 1], self.exam_items[idx] = self.exam_items[idx], self.exam_items[idx + 1]
-            self.refresh_items_tree()
-            self.items_tree.selection_set(str(idx + 1))
+        if idx >= len(self.exam_items) - 1:
+            return
+
+        item_curr = self.exam_items[idx]
+        item_next = self.exam_items[idx + 1]
+
+        # Si están en páginas distintas, intercambiamos sus números de página
+        p_curr = int(item_curr.get("page_number", 1))
+        p_next = int(item_next.get("page_number", 1))
+        if p_curr != p_next:
+            item_curr["page_number"] = p_next
+            item_next["page_number"] = p_curr
+
+        # Intercambiar elementos en la lista
+        self.exam_items[idx], self.exam_items[idx + 1] = self.exam_items[idx + 1], self.exam_items[idx]
+
+        # Actualizar item_order secuencial
+        for i, it in enumerate(self.exam_items, start=1):
+            it["item_order"] = i
+
+        self.refresh_items_tree()
+        self.items_tree.selection_set(str(idx + 1))
+        self.items_tree.see(str(idx + 1))
+
+    def _show_tree_context_menu(self, event):
+        row_id = self.items_tree.identify_row(event.y)
+        if row_id:
+            self.items_tree.selection_set(row_id)
+        if not self.items_tree.selection():
+            return
+
+        menu = tk.Menu(self, tearoff=0)
+        menu.add_command(label="▲ Subir posición (Alt+Arriba)", command=self._move_item_up)
+        menu.add_command(label="▼ Bajar posición (Alt+Abajo)", command=self._move_item_down)
+        menu.add_separator()
+        menu.add_command(label="📄 Asignar a otra página...", command=self._open_assign_page_dialog)
+        menu.add_command(label="✏️ Editar puntaje / alto...", command=self._quick_edit_item)
+        menu.add_separator()
+        menu.add_command(label="🗑️ Quitar del examen", command=self._remove_selected_item)
+        menu.tk_popup(event.x_root, event.y_root)
 
     def _open_assign_page_dialog(self):
         selected = self.items_tree.selection()
