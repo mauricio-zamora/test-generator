@@ -395,6 +395,24 @@ def generate_exam_html(exam_data: Dict[str, Any], items: List[Dict[str, Any]]) -
             font-weight: bold;
             margin-bottom: 6px;
         }}
+        .question-text > p:first-child {{
+            display: inline;
+        }}
+        .question-text p {{
+            margin: 4px 0;
+            font-weight: normal;
+        }}
+        .question-text p strong, .question-text strong {{
+            font-weight: bold;
+        }}
+        .question-text table {{
+            margin: 8px 0;
+            font-weight: normal;
+        }}
+        .question-text pre {{
+            margin: 8px 0;
+            font-weight: normal;
+        }}
         .question-points {{
             font-weight: normal;
             font-style: italic;

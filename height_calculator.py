@@ -8,6 +8,7 @@ escritura de código en blanco, análisis de código, preguntas con 1 y 2 imáge
 
 import math
 import json
+import re
 from typing import List, Dict, Any, Tuple
 
 # Constantes de dimensiones estándar para Carta a 96 DPI
@@ -48,17 +49,29 @@ def estimate_item_height(
 
     scale = font_size_px / 12.0
     text_line_h = 17.0 * scale * (line_height_multiplier / 1.4)
+    approx_chars_per_line = int(88 / scale)
+
+    raw_q_text = question_text or ""
+
+    # Altura de tablas HTML: contar filas <tr>
+    table_rows = len(re.findall(r'<tr\b', raw_q_text, re.IGNORECASE))
+    table_height = (table_rows * int(30 * scale) + 14) if table_rows > 0 else 0
+
+    # Altura de bloques de código <pre>
+    pre_blocks = re.findall(r'<pre[^>]*>(.*?)</pre>', raw_q_text, re.DOTALL | re.IGNORECASE)
+    pre_lines_count = sum(len(b.strip().splitlines()) for b in pre_blocks)
+    pre_height = (pre_lines_count * int(18 * scale) + 16) if pre_blocks else 0
+
+    # Texto restante fuera de tablas y bloques de código
+    text_sans_tables = re.sub(r'<table\b.*?</table>', '', raw_q_text, flags=re.DOTALL | re.IGNORECASE)
+    text_sans_code = re.sub(r'<pre\b.*?</pre>', '', text_sans_tables, flags=re.DOTALL | re.IGNORECASE)
 
     # Limpiar etiquetas HTML para conteo de caracteres
-    plain_text = (question_text or "").replace("<code>", "").replace("</code>", "")\
-                                      .replace("<b>", "").replace("</b>", "")\
-                                      .replace("<u>", "").replace("</u>", "")\
-                                      .replace("<strong>", "").replace("</strong>", "")\
-                                      .replace("<p>", "").replace("</p>", "")
-    
-    approx_chars_per_line = int(88 / scale)
-    num_text_lines = max(1, math.ceil(len(plain_text) / max(30, approx_chars_per_line)))
-    question_text_height = int(num_text_lines * text_line_h) + 6
+    plain_text = re.sub(r'<[^>]+>', ' ', text_sans_code)
+    plain_text = " ".join(plain_text.split())
+
+    num_text_lines = max(1, math.ceil(len(plain_text) / max(30, approx_chars_per_line))) if plain_text else (0 if (table_rows > 0 or pre_blocks) else 1)
+    question_text_height = int(num_text_lines * text_line_h) + table_height + pre_height + 6
 
     if question_type in ("single_choice", "multiple_choice"):
         options = extra.get("options", [])

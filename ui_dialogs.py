@@ -8,6 +8,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 import json
 import os
+import re
 from typing import Optional, Dict, Any, List
 
 import database
@@ -46,8 +47,8 @@ class QuestionEditorDialog(tk.Toplevel):
         self.img2_b64 = None
 
         self.title("Editar Pregunta" if question_id else "Nueva Pregunta")
-        self.minsize(740, 600)
-        center_window(self, 820, 720)
+        self.minsize(800, 650)
+        center_window(self, 920, 800)
         self.transient(parent)
         self.grab_set()
 
@@ -112,7 +113,7 @@ class QuestionEditorDialog(tk.Toplevel):
         self.points_spin.grid(row=0, column=3, sticky=tk.W, padx=(0, 15))
 
         ttk.Label(row2, text="Alto Est. (px):", font=("Segoe UI", 9, "bold")).grid(row=0, column=4, sticky=tk.W, padx=(0, 5))
-        self.height_spin = ttk.Spinbox(row2, from_=30, to=1500, increment=10, width=7)
+        self.height_spin = ttk.Spinbox(row2, from_=30, to=3000, increment=10, width=7)
         self.height_spin.set("80")
         self.height_spin.grid(row=0, column=5, sticky=tk.W)
 
@@ -123,17 +124,37 @@ class QuestionEditorDialog(tk.Toplevel):
         self.title_entry = ttk.Entry(row3)
         self.title_entry.pack(fill=tk.X)
 
-        # Fila 4: Enunciado de la Pregunta
-        row4 = ttk.Frame(container)
-        row4.pack(fill=tk.X, pady=(0, 8))
-        ttk.Label(row4, text="Enunciado de la Pregunta / Instrucciones (admite <code>, <b>, <u>, etc.):", font=("Segoe UI", 9, "bold")).pack(anchor=tk.W, pady=(0, 2))
-        self.text_widget = tk.Text(row4, height=3, font=("Segoe UI", 9), wrap=tk.WORD)
-        self.text_widget.pack(fill=tk.X)
-        self.text_widget.bind("<KeyRelease>", lambda e: self._recalculate_height())
+        # Fila 4: Enunciado de la Pregunta (con Scrollbar y tamaño dinámico amplio)
+        self.row4 = ttk.Frame(container)
+        self.row4.pack(fill=tk.BOTH, expand=True, pady=(0, 8))
+
+        row4_hdr = ttk.Frame(self.row4)
+        row4_hdr.pack(fill=tk.X, pady=(0, 3))
+        ttk.Label(
+            row4_hdr,
+            text="Enunciado de la Pregunta / Instrucciones (admite <table>, <pre>, <code>, <b>, <u>, etc.):",
+            font=("Segoe UI", 9, "bold")
+        ).pack(side=tk.LEFT)
+
+        text_container = ttk.Frame(self.row4)
+        text_container.pack(fill=tk.BOTH, expand=True)
+
+        text_scroll = ttk.Scrollbar(text_container, orient=tk.VERTICAL)
+        self.text_widget = tk.Text(
+            text_container,
+            height=12,
+            font=("Segoe UI", 10),
+            wrap=tk.WORD,
+            yscrollcommand=text_scroll.set
+        )
+        text_scroll.config(command=self.text_widget.yview)
+        text_scroll.pack(side=tk.RIGHT, fill=tk.Y)
+        self.text_widget.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        self.text_widget.bind("<KeyRelease>", lambda e: self._on_text_modified())
 
         # Contenedor para Editor Dinámico según el Tipo
         self.dynamic_frame = ttk.LabelFrame(container, text="Detalles Específicos del Tipo de Pregunta", padding="10")
-        self.dynamic_frame.pack(fill=tk.BOTH, expand=True, pady=(0, 10))
+        self.dynamic_frame.pack(fill=tk.X, expand=False, pady=(0, 10))
 
         # Barra de botones inferior
         btn_bar = ttk.Frame(container)
@@ -172,9 +193,52 @@ class QuestionEditorDialog(tk.Toplevel):
         for widget in self.dynamic_frame.winfo_children():
             widget.destroy()
 
+    def _on_text_modified(self):
+        # Auto-sugerir título si el campo de título está vacío
+        if not self.title_entry.get().strip():
+            raw_text = self.text_widget.get("1.0", tk.END).strip()
+            if raw_text:
+                suggested = self._extract_title_from_text(raw_text)
+                if suggested:
+                    self.title_entry.delete(0, tk.END)
+                    self.title_entry.insert(0, suggested)
+        self._recalculate_height()
+
+    def _extract_title_from_text(self, text: str) -> str:
+        if not text:
+            return ""
+        # Buscar patrones como <strong>Ejercicio 1...</strong> o similar
+        m = re.search(r'<strong>\s*(Ejercicio\s+\d+[^<]*|Problema\s+\d+[^<]*)\s*</strong>', text, re.IGNORECASE)
+        if m:
+            clean = re.sub(r'<[^>]+>', '', m.group(1)).strip()
+            return clean[:60]
+        # Si no, tomar la primera oración limpia
+        clean = re.sub(r'<[^>]+>', ' ', text)
+        clean = " ".join(clean.split())
+        if clean:
+            first = clean.split(".")[0].strip()
+            return first[:55] if first else clean[:55]
+        return ""
+
     def _on_type_changed(self, event=None):
         self._clear_dynamic_frame()
         q_type = self._get_internal_type()
+
+        # Configurar proporción visual según el tipo de pregunta
+        if q_type in ("development", "code_writing"):
+            # Para desarrollo y escritura de código solo hay controles compactos (spinbox)
+            # Todo el espacio expansible se asigna al cuadro de texto del enunciado
+            self.dynamic_frame.pack_configure(fill=tk.X, expand=False)
+            self.row4.pack_configure(fill=tk.BOTH, expand=True)
+            self.text_widget.config(height=14)
+        elif q_type in ("single_choice", "multiple_choice", "true_false"):
+            self.dynamic_frame.pack_configure(fill=tk.BOTH, expand=True)
+            self.row4.pack_configure(fill=tk.BOTH, expand=True)
+            self.text_widget.config(height=8)
+        else:
+            self.dynamic_frame.pack_configure(fill=tk.BOTH, expand=True)
+            self.row4.pack_configure(fill=tk.BOTH, expand=True)
+            self.text_widget.config(height=7)
 
         if q_type in ("single_choice", "multiple_choice"):
             self._build_choice_ui()
@@ -196,24 +260,24 @@ class QuestionEditorDialog(tk.Toplevel):
         self._recalculate_height()
 
     def _get_internal_type(self) -> str:
-        name = self.type_combo.get()
-        if "Única" in name:
+        name = self.type_combo.get().lower()
+        if "única" in name or "unica" in name:
             return "single_choice"
-        elif "Múltiple" in name:
+        elif "múltiple" in name or "multiple" in name:
             return "multiple_choice"
-        elif "Falso" in name:
+        elif "falso" in name:
             return "true_false"
-        elif "con Renglones" in name:
+        elif "desarrollo" in name or "renglon" in name or "development" in name:
             return "development"
-        elif "Recuadro en Blanco" in name or "Escritura" in name:
+        elif "recuadro" in name or "escritura" in name:
             return "code_writing"
-        elif "Errores" in name or "Código" in name:
+        elif "errores" in name or "código" in name or "codigo" in name:
             return "code_analysis"
-        elif "1 Imagen" in name:
+        elif "1 imagen" in name:
             return "single_image"
-        elif "2 Imágenes" in name or "2 Imagenes" in name:
+        elif "2 im" in name:
             return "double_image"
-        elif "Asociación" in name:
+        elif "asociación" in name or "asociacion" in name:
             return "association"
         return "single_choice"
 
@@ -239,10 +303,18 @@ class QuestionEditorDialog(tk.Toplevel):
         row = ttk.Frame(self.dynamic_frame)
         row.pack(anchor=tk.W, pady=5)
         ttk.Label(row, text="Cantidad de Renglones para Responder:").pack(side=tk.LEFT, padx=(0, 10))
-        self.lines_spin = ttk.Spinbox(row, from_=0, to=30, increment=1, width=8)
+        self.lines_spin = ttk.Spinbox(row, from_=0, to=40, increment=1, width=8)
         self.lines_spin.set("10")
         self.lines_spin.pack(side=tk.LEFT)
         self.lines_spin.bind("<KeyRelease>", lambda e: self._recalculate_height())
+        self.lines_spin.bind("<<Increment>>", lambda e: self.after(50, self._recalculate_height))
+        self.lines_spin.bind("<<Decrement>>", lambda e: self.after(50, self._recalculate_height))
+
+        ttk.Label(
+            self.dynamic_frame,
+            text="💡 Ingrese 0 si la pregunta ya incluye una tabla o recuadro propio para responder en papel, o un número (ej. 6, 8, 10) para generar renglones reglamentarios impresos.",
+            font=("Segoe UI", 8, "italic")
+        ).pack(anchor=tk.W, pady=(4, 0))
 
     # --- Escritura de Código (Recuadro en Blanco) ---
     def _build_code_writing_ui(self):
@@ -622,7 +694,12 @@ class QuestionEditorDialog(tk.Toplevel):
                 cat_id = c["id"]
                 break
 
-        if not cat_id:
+        if not cat_id and self.categories:
+            # Si no se seleccionó pero hay categorías, usar la primera por defecto
+            cat_id = self.categories[0]["id"]
+            self.cat_combo.set(self.categories[0]["name"])
+            self._on_category_changed()
+        elif not cat_id:
             messagebox.showerror("Error", "Debe seleccionar una categoría válida.", parent=self)
             return
 
@@ -633,15 +710,17 @@ class QuestionEditorDialog(tk.Toplevel):
                 subcat_id = s["id"]
                 break
 
-        title = self.title_entry.get().strip()
-        if not title:
-            messagebox.showerror("Error", "Debe ingresar un título o resumen para la pregunta.", parent=self)
-            return
-
         text = self.text_widget.get("1.0", tk.END).strip()
         if not text:
             messagebox.showerror("Error", "Debe ingresar el enunciado de la pregunta.", parent=self)
             return
+
+        title = self.title_entry.get().strip()
+        if not title:
+            # Auto-generar título amigable a partir del texto para no bloquear
+            title = self._extract_title_from_text(text) or "Pregunta de Desarrollo"
+            self.title_entry.delete(0, tk.END)
+            self.title_entry.insert(0, title)
 
         try:
             points = float(self.points_spin.get())
